@@ -1,0 +1,7 @@
+{
+    "group" : "apache",
+    "requestInterval": "5000",
+    "maxPage": "35",
+    "url": "https://github.com/",
+    "language": "java"
+}
