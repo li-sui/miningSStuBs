@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+/**
+ * util class
+ * @author Li Sui
+ */
 public class Util {
 
     static String url;
@@ -20,25 +24,28 @@ public class Util {
     //prior to the search, you need to find out how many pages are there.
     static int maxPage;
     static  Map<String, String> cookie;
+    //these two string arrays contain projects from SStuBs dataset
+    static  String[] topProjects;
+    static String[] topMavenProjects;
+
     static{
-        String configFile="config.json";
-        String cookieFile="cookie.json";
         Gson gson =new Gson();
         String cookieInput= null;
         String configInput= null;
         try {
-            cookieInput = FileUtils.readFileToString(new File(cookieFile), Charset.defaultCharset());
-            configInput=FileUtils.readFileToString(new File(configFile), Charset.defaultCharset());
+            cookieInput = FileUtils.readFileToString(new File("src/main/resources/cookie.json"), Charset.defaultCharset());
+            configInput=FileUtils.readFileToString(new File("src/main/resources/config.json"), Charset.defaultCharset());
+            topProjects=FileUtils.readFileToString(new File("src/main/resources/topProjects.csv"),Charset.defaultCharset()).split("\\n");
+            topMavenProjects=FileUtils.readFileToString(new File("src/main/resources/topJavaMavenProjects.csv"),Charset.defaultCharset()).split("\\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
         cookie=gson.fromJson(cookieInput, new TypeToken<Map<String, String>>() {}.getType());
         Map<String,String> config=gson.fromJson(configInput, new TypeToken<Map<String, String>>() {}.getType());
         group=config.get("group");
-        requestInterval=Integer.getInteger(config.get("requestInterval"));
-        maxPage=Integer.getInteger(config.get("maxPage"));
+        requestInterval=Integer.parseInt(config.get("requestInterval"));
+        maxPage=Integer.parseInt(config.get("maxPage"));
         url=config.get("url");
         language=config.get("language");
-
     }
 }

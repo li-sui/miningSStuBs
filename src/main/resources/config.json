@@ -1,0 +1,7 @@
+{
+    "group" : "spring-projects",
+    "requestInterval": "5000",
+    "maxPage": "5",
+    "url": "https://github.com",
+    "language": "java"
+}
