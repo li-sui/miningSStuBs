@@ -18,38 +18,44 @@ import java.util.List;
 public class ExtractProjectsFromGithub {
 
     public static void main(String[] args) throws Exception{
-        String outputPath=Util.group+".projects.csv";
+        List<Configuration.Community> communities= Util.configuration.getCommunities();
+        String url =Util.configuration.getUrl();
+        String language= Util.configuration.getLanguage();
+        int requestInterval=Util.configuration.getRequestInterval();
         StringBuilder sb=new StringBuilder();
-        int count=0;
-        int total =0;
-        for(int page=1;page<=Util.maxPage;page++){
-            Document doc = Jsoup.connect(Util.url+"/"+Util.group+"?language="+Util.language+"&page="+page).cookies(Util.cookie).get();
-            //TODO:hard coded elements, need to update if github webpage changes
-            List<Element> repos=doc.getElementsByAttributeValue("data-hovercard-type","repository");
-
-            for(Element element: repos){
-                String project = element.text();
-                total++;
-                //checking the mined project that has been included in SStuBs dataset
-                if(!isDup(project)) {
-                    String projectUrl= Util.url+"/"+Util.group+"/"+project;
-                    sb.append(projectUrl);
-                    sb.append("\n");
-                    count++;
+        for(Configuration.Community community: communities){
+            int count=0;
+            int total =0;
+            System.out.println("mining for "+community.getName()+"....");
+            for(int page=1;page<=community.getMaxPage();page++){
+                Document doc = Jsoup.connect(url+"/"+community.getName()+"?language="+language+"&page="+page).cookies(Util.cookie).get();
+                //TODO:hard coded elements, need to update if github webpage changes
+                List<Element> repos=doc.getElementsByAttributeValue("data-hovercard-type","repository");
+                for(Element element: repos){
+                    String project = element.text();
+                    total++;
+                    //checking the mined project that has been included in SStuBs dataset
+                    if(!isDup(community.getName(),project)) {
+                        String projectUrl= url+"/"+community.getName()+"/"+project;
+                        //format: projectUrl,communityName,projectName
+                        sb.append(projectUrl);sb.append(",");sb.append(community.getName());sb.append(",");sb.append(project);
+                        sb.append("\n");
+                        count++;
+                    }
                 }
+//                System.out.println("-----page "+page+" done, pause for a while.....");
+                Thread.sleep(requestInterval);
             }
-            System.out.println("page "+page+" done, pause for a while.....");
-            Thread.sleep(Util.requestInterval);
+            System.out.println("extracted: "+count+"/"+total);
         }
-        System.out.println("extracted: "+count+"/"+total);
-        File output =new File(outputPath);
+        File output =new File("githubCommunityProjects.csv");
         FileUtils.touch(output);
         FileUtils.writeStringToFile(output,sb.toString(), Charset.defaultCharset());
     }
 
-    public static boolean isDup(String project){
+    public static boolean isDup(String communityName, String project){
         boolean dup=false;
-        String fullName= Util.group+"/"+project;
+        String fullName= communityName+"/"+project;
         for(int j =0; j< Util.topProjects.length;j++){
             if(Util.topProjects[j].contains(fullName)){
                 dup=true;

@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,14 +16,7 @@ import java.util.Map;
  */
 public class Util {
 
-    static String url;
-    static String language;
-    //interval between each get request, default set to 5000 milliseconds
-    static int requestInterval;
-    //target group. e.g. google, apache, eclipse
-    static String group;
-    //prior to the search, you need to find out how many pages are there.
-    static int maxPage;
+    static Configuration configuration;
     static  Map<String, String> cookie;
     //these two string arrays contain projects from SStuBs dataset
     static  String[] topProjects;
@@ -41,11 +35,7 @@ public class Util {
             e.printStackTrace();
         }
         cookie=gson.fromJson(cookieInput, new TypeToken<Map<String, String>>() {}.getType());
-        Map<String,String> config=gson.fromJson(configInput, new TypeToken<Map<String, String>>() {}.getType());
-        group=config.get("group");
-        requestInterval=Integer.parseInt(config.get("requestInterval"));
-        maxPage=Integer.parseInt(config.get("maxPage"));
-        url=config.get("url");
-        language=config.get("language");
+        configuration=gson.fromJson(configInput, Configuration.class);
+        ;
     }
 }
