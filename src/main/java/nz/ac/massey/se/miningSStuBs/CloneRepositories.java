@@ -13,35 +13,41 @@ import java.nio.charset.Charset;
  */
 public class CloneRepositories {
     //list of projects from Github.
-    static final String projectsFilePath="apache.projects.noDup_15_02_2020.csv";
-    //directory that projects are cloned to.
-    static final String clonedDir="/home/lsui/projects/PilotExperiments/SStuBs/Apache-projects";
-
-    static final String repoPrefix="https://github.com/apache";
+    static final String projectsFilePath="githubCommunityProjects.csv";
+    //directory that projects are cloned to. TODO:configurable
+    static final String clonedDir="/home/lsui/projects/githubProjects";
 
     public static void main(String[] args) throws Exception{
         String[] projects= FileUtils.readFileToString(new File(projectsFilePath),
                 Charset.defaultCharset()).split("\\n");
         int count=0;
-        for (String project : projects) {
+        for (String line : projects) {
+            String url =line.split(",")[0];
+            String community=line.split(",")[1];
+            String projectName=community+"."+line.split(",")[2];
             //skip already cloned repo
-            File file = new File(clonedDir +"/"+ project);
+            File file = new File(clonedDir +"/"+ projectName);
             if (!file.exists()) {
-                System.out.println("cloning: " + project);
+                System.out.println("cloning: " + projectName);
                 count++;
-                gitClone(clonedDir,project);
+                try {
+                    gitClone(url, clonedDir,projectName);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    System.err.println(count+" has been cloned");
+                }
             }
         }
         System.out.println("numbers of cloned projects:"+count);
     }
 
-    public static void gitClone(String outputDir, String name) throws GitAPIException {
+    public static void gitClone(String url, String outputDir, String name) throws GitAPIException {
         File repoDir= new File(outputDir+"/"+name);
         if(!repoDir.exists() && repoDir.isDirectory()){
             repoDir.mkdirs();
         }
         Git.cloneRepository()
-                .setURI(repoPrefix+"/"+name)
+                .setURI(url)
                 .setDirectory(repoDir)
                 .call();
     }

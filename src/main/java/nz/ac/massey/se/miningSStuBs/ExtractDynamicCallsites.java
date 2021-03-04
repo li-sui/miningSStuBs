@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * required SStuBsMiner to be run first
  * @author Li Sui
  */
 public class ExtractDynamicCallsites {
