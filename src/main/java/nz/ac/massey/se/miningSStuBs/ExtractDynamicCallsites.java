@@ -17,7 +17,8 @@ import java.util.Set;
  * @author Li Sui
  */
 public class ExtractDynamicCallsites {
-    static final String sstubsFile= "/home/lsui/projects/PilotExperiments/SStuBs/sstubs-testing/Apache-results/sstubs.json";
+    //path to bug file. TODO:configurable
+    static final String sstubsFile= "/home/lsui/projects/miningSStuBs/results/bugs.json";
 
     public static void main(String[] args) throws Exception{
         Gson gson =new Gson();
@@ -55,7 +56,7 @@ public class ExtractDynamicCallsites {
             String beforeFix= bugReport.getSourceBeforeFix();
             String afterFix=bugReport.getSourceAfterFix();
             String projectUrl="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/");
-            String fixUrl="https://github.com/apache/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
+            String fixUrl="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
                     +bugReport.getFixCommitSHA1();
             String bugSourceCode="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
                     +bugReport.getFixCommitParentSHA1()+"/"+bugReport.getBugFilePath();
