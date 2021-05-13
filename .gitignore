@@ -39,5 +39,7 @@ results/*
 *.cb2
 .*.lb
 *.swp
-*.pdf
 *.cut
+doc/*.bbl
+doc/*.blg
+doc/*.pdf

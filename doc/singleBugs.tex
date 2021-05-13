@@ -22,8 +22,10 @@
 %% in the same archive or directory.)
 %%
 %% The first command in your LaTeX source must be the \documentclass command.
-\documentclass[acmsmall,screen,review]{acmart}
-
+\documentclass[sigconf,review,anonymous]{acmart}
+\usepackage{url}
+\usepackage{todonotes}
+\usepackage{listings}
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
@@ -182,13 +184,34 @@
 
 
 
-\section{Study Design}
-In order to obtain more dynamic language feature related bugs, we extend the dataset by including more projects from following software communities on GitHub: Google\footnote{\url{https://github.com/google}}, Eclipse\footnote{\url{https://github.com/eclipse}}, Jetbrains\footnote{\url{https://github.com/JetBrains}}, Mozilla\footnote{\url{https://github.com/mozilla}}, Apache\footnote{\url{https://github.com/apache}} and Spring\footnote{\url{https://github.com/spring-projects}}. 
+\section{Methodology}
+We discuss the methodology used in our study in this section. Figure \ref{fig:process} demonstrates an overview of process. The main dataset we used are from the SStuBs study \cite{karampatsis2020often}. Addition to the original SStuBs \cite{karampatsis2020often} dataset, we extend the dataset by including more projects from software communities on GitHub in order to obtain more dynamic language feature related bugs. These software communities include: Google\footnote{\url{https://github.com/google} [accessed on 12,May 2021]}, Eclipse\footnote{\url{https://github.com/eclipse} [accessed on 12,May 2021]}, Jetbrains\footnote{\url{https://github.com/JetBrains}}, Mozilla\footnote{\url{https://github.com/mozilla}}, Apache\footnote{\url{https://github.com/apache} [accessed on 12,May 2021]} and Spring\footnote{\url{https://github.com/spring-projects} [accessed on 12,May 2021]}. We select those communities based on the following criteria: 
+
+\begin{itemize}
+\item they have numbers of well-known Java projects.
+\item all of projects are currently active and constantly updated.
+\item communities that have issue tracking system, either be GitHub issue or other system such as bugzilla \footnote{\url{https://www.bugzilla.org/}} for Apache projects
+\item projects that are known for using dynamic features, such as Spring.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+      \includegraphics[width=0.7\columnwidth]{figures/process.png}
+  \caption{an overview of process}
+  \label{fig:process}
+\end{figure}
+
+
+Those 6 communities have quite numbers of projects so we need to harvest the url for each project in order to clone the repository. We use HTTP GET requests to retrieve community pages, which contain a list of projects. Then we use the Jsoup\footnote{\url{https://jsoup.org} [accessed on 12,May 2021]}: a HTML parser to retrieved HTML DOM that contains project urls. At this stage, we remove some projects that have been included the original SStuBs dataset to avoid duplications. Then all project are cloned to the local disk.  
+%%explain why not use GitHub API, because we aim upto date project with latest commits and issues
+The script that is then used to obtain single statement bugs from each cloned repository is provided by the SStuBs study\footnote{\url{https://github.com/mast-group/mineSStuBs} [accessed on 12,May 2021]}.  Once we have both datasets (original SStuBs and additional datasets from selected software communities), we use a script to identify single statement bugs that relate to dynamic features. To be precise to what we refer as dynamic language features, we select keywords from callsites to locate changes in the fix commits.  Those keywords are provided in Table \ref{tab:keyword}. We select those key words based on Sui et al.\cite{sui2018soundness}
 
 \begin{table}[h]
+\scriptsize
 \caption{keywords}
 \label{tab:keyword}
-\begin{tabular}{|l|l|}
+\footnotesize
+\begin{tabular}{|l|p{5cm}|}
 \hline
 keyword                  & full name                    \\ \hline
 .invoke(                 & java.lang.reflect.Method.invoke \\ \hline
