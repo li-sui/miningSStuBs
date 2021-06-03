@@ -211,14 +211,14 @@ The script that is then used to obtain single statement bugs from each cloned re
 \caption{keywords}
 \label{tab:keyword}
 \footnotesize
-\begin{tabular}{|l|p{5cm}|}
+\begin{tabular}{|l|p{5.15cm}|}
 \hline
-keyword                  & full name                    \\ \hline
+Keyword                  & Full Name                    \\ \hline
 .invoke(                 & java.lang.reflect.Method.invoke \\ \hline
 .getDeclaredMethod(      & java.lang.Class.getDeclaredMethod\\ \hline
 .getDeclaredConstructor( & java.lang.Class.getDeclaredConstructor\\ \hline
 .getDeclaredField(       & java.lang.Class.getDeclaredField \\ \hline
-.newInstance(            & java.lang.Class.newIstance\&java.lang.reflect.Constructor.newInstance\\ \hline
+.newInstance(            & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}java.lang.Class.newIstance\\java.lang.reflect.Constructor.newInstance\end{tabular}}\\ \hline
 .forName(                & java.lang.Class.forName         \\ \hline
 .findClass(              & java.lang.ClassLoader.findClass  \\ \hline
 .defineClass(            & java.lang.ClassLoader.defineClass \\ \hline
@@ -232,9 +232,77 @@ keyword                  & full name                    \\ \hline
 \end{table}
 
 \section{Results and Discussion}
+Addition to SStuBs dataset, we mined other 1,032 Java projects from Github. From those projects, we extracted a total of 33,137 single statement bugs.\footnote{SStuBs\cite{karampatsis2020often} has 1,000 projects with 63,923 single statement bugs.} After filtering by keywords provided in Table \ref{tab:keyword}, we found 120 dynamic feature related bugs in SStuBs and 77 in the additional dataset. We then conducted a manual validation to check duplicates and false positives. We ended up with 58 identical single statement bugs. Table \ref{tab:results-overview} shows an overview of a number of bugs for each category. Note that there are 5 bugs that appear across multiple categories and the total number of bugs identified is 63. We discuss some of bugs in more details next.
+
+\begin{table}[h]
+\caption{results overview}
+\scriptsize
+\label{tab:results-overview}
+\footnotesize
+\begin{tabular}{|l|l|r|}
+\hline
+Callsite                     &Category& \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}number \\ of bugs\end{tabular}} \\ \hline
+Class.forName                &reflection& 16                                                                             \\ \hline
+Method.invoke                &reflection& 15                                                                             \\ \hline
+Class.get....                &reflection& 13                                                                             \\ \hline
+newInstance                  &reflection& 7                                                                              \\ \hline
+classloader                  &dynamic class loading& 5                                                                              \\ \hline
+Service.load                 &service loader& 3                                                                              \\ \hline
+readObject                   &serialisation& 2                                                                              \\ \hline
+Proxy.getInvocationHandler() &dynamic proxy& 1                                                                              \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{junit4}
 
 
 
+\begin{table}[h!]
+  \footnotesize
+  \label{tab:junit4}
+  \begin{tabular}{rp{5cm}}
+    before fix:  &  \footnotesize{\texttt{Class.forName(name);}}\\
+    after fix:  &  \footnotesize{\texttt{Class.forName(name, false, getClass().getClassLoader());}} \\
+    bug type:   &  \texttt{OVERLOAD\_METHOD\_MORE\_ARGS} \\
+    fix commit: &  \texttt{b1068dc55c95d1000e07b71d3a9d9a2fd26bfff9} \\
+    commit message:   &  \texttt{Fix for \#359}\\
+    issue link &  \url{https://github.com/junit-team/junit4/issues/359}
+  \end{tabular}
+\end{table}
+
+%junit-team/junit4 Class.forName() OVERLOAD_METHOD_MORE_ARGS Fix for #359  Contributor bug/nonregression https://github.com/junit-team/junit4/issues/359 https://github.com/junit-team/junit4/commit/b1068dc55c95d1000e07b71d3a9d9a2fd26bfff9                                      
+
+\subsection{spring-framework}
+
+\begin{table}[h!]
+  \footnotesize
+  \label{tab:spring}
+  \begin{tabular}{rp{5cm}}
+    before fix:  &  \footnotesize{\texttt{method.invoke(target, args);}} \\
+    after fix:  &  \footnotesize{\texttt{method.invoke(CachedMessageProducer.this, args)}} \\
+    bug type:   &  \texttt{CHANGE\_IDENTIFIER} \\
+    fix commit: &  \texttt{134e5a2aecf913bcc184d5d3ae845a13d5369078} \\
+    commit message:   &  \texttt{Jms2MessageProducerInvocationHandler properly delegates to CachedMess…Issue: SPR-11949}\\
+    issue link &  \url{https://github.com/spring-projects/spring-framework/issues/16566}
+  \end{tabular}
+\end{table}
+%spring-projects/spring-framework  Method.invoke()  CHANGE_IDENTIFIER  Jms2MessageProducerInvocationHandler properly delegates to CachedMess…  Collaborator  type: bug https://github.com/spring-projects/spring-framework/issues/16566  https://github.com/spring-projects/spring-framework/commit/134e5a2aecf913bcc184d5d3ae845a13d5369078                                     
+\subsection{camel-spring-boot}
+Apache camel-spring-boot project is... for different method with same arguments
+\begin{table}[h!]
+  \footnotesize
+  \label{tab:camel}
+  \begin{tabular}{rp{5cm}}
+    before fix:  &  \footnotesize{\texttt{type.getDeclaredConstructor(String.class);}} \\
+    after fix:  &  \footnotesize{\texttt{type.getConstructor(String.class);}} \\
+    bug type:   &  \texttt{DIFFERENT\_METHOD\_SAME\_ARGS} \\
+    fix commit: &  \texttt{8a4f25a6dcaae2b704bce5794e007131236cb0d7} \\
+    commit message:   &  \texttt{Fixes CAMEL-13437: now also looking for constructor in superclasses.}\\
+    issue link &  \url{https://issues.apache.org/jira/browse/CAMEL-13437}
+  \end{tabular}
+\end{table}
+%apache/ws-axiom Class.getDeclaredConstructor()  DIFFERENT_METHOD_SAME_ARGS  Fixes CAMEL-13437: now also looking for constructor in superclasses.  Contributor bug https://issues.apache.org/jira/browse/CAMEL-13437 https://github.com/apache/camel-spring-boot/commit/8a4f25a6dcaae2b704bce5794e007131236cb0d7                                                                          
 \section{Conclusion}
 
 
