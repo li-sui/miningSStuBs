@@ -232,7 +232,7 @@ Keyword                  & Full Name                    \\ \hline
 \end{table}
 
 \section{Results and Discussion}
-Addition to SStuBs dataset, we mined other 1,032 Java projects from Github. From those projects, we extracted a total of 33,137 single statement bugs.\footnote{SStuBs\cite{karampatsis2020often} has 1,000 projects with 63,923 single statement bugs.} After filtering by keywords provided in Table \ref{tab:keyword}, we found 120 dynamic feature related bugs in SStuBs and 77 in the additional dataset. We then conducted a manual validation to check duplicates and false positives. We ended up with 58 identical single statement bugs. Table \ref{tab:results-overview} shows an overview of a number of bugs for each category. Note that there are 5 bugs that appear across multiple categories and the total number of bugs identified is 63. We discuss some of bugs in more details next.
+Addition to SStuBs dataset, we mined other 1,032 Java projects from Github. From those projects, we extracted a total of 33,137 single statement bugs.\footnote{SStuBs\cite{karampatsis2020often} has 1,000 projects with 63,923 single statement bugs.} After filtering by keywords provided in Table \ref{tab:keyword}, we found 120 dynamic feature related bugs in SStuBs and 77 in the additional dataset. We then conducted a manual validation to check duplicates and false positives. We ended up with 58 identical single statement bugs. Table \ref{tab:results-overview} shows an overview of a number of bugs for each category.\footnote{Note that there are 4 bugs that appear across multiple categories. The total number of bugs identified is 62.}
 
 \begin{table}[h]
 \caption{results overview}
@@ -241,7 +241,7 @@ Addition to SStuBs dataset, we mined other 1,032 Java projects from Github. From
 \footnotesize
 \begin{tabular}{|l|l|r|}
 \hline
-Callsite                     &Category& \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}number \\ of bugs\end{tabular}} \\ \hline
+Callsite                     &Category& \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}No. bugs\end{tabular}} \\ \hline
 Class.forName                &reflection& 16                                                                             \\ \hline
 Method.invoke                &reflection& 15                                                                             \\ \hline
 Class.get....                &reflection& 13                                                                             \\ \hline
@@ -254,8 +254,35 @@ Proxy.getInvocationHandler() &dynamic proxy& 1                                  
 \end{table}
 
 
-\subsection{junit4}
 
+32 out of 58 bugs are indicated in the issue tracking system. They provide rich text about why the bug occurs and how to solve it. Furthermore, we analysed the person who reported the issue. Two categories has been identified: (1) community users who encountered issues and therefore reported them. (2) contributor who built the project and identified issues. There are 11/32 issues have been reported by community users and 18/32 have been reported by contributors. We believe that the reported issues by community users provide more piratical scenario that is unlikely to be tested by developers. 
+%we then disscus it in the furter work: run test cases to see wether it can be covered or not.
+Table \ref{tab:results-fixmethod} shows a number of fix methods for bugs. Those methods have already been discussed in SStuBs \cite{karampatsis2020often}. Most of bugs have been resolved via either providing more arguments for overloaded methods (OVERLOAD\_METHOD\_MORE\_ARGS) or changing arguments (CHANGE\_IDENTIFIER). This indicates dynamic features are likely to be wrongly handled when passing arguments. We discuss some of bugs in more details next.
+
+\begin{table}[h]
+\scriptsize
+\caption{fix type}
+\footnotesize
+\label{tab:results-fixmethod}
+\begin{tabular}{|l|r|}
+\hline
+Fix Method                           & \multicolumn{1}{l|}{No. bugs} \\ \hline
+OVERLOAD\_METHOD\_MORE\_ARGS       & 26                          \\ \hline
+CHANGE\_IDENTIFIER                 & 14                          \\ \hline
+SWAP\_BOOLEAN\_LITERAL             & 2                           \\ \hline
+LESS\_SPECIFIC\_IF                 & 1                           \\ \hline
+OVERLOAD\_METHOD\_DELETED\_ARGS    & 4                           \\ \hline
+CHANGE\_CALLER\_IN\_FUNCTION\_CALL & 7                           \\ \hline
+DIFFERENT\_METHOD\_SAME\_ARGS      & 5                           \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{junit4}
+Junit4\footnote{\url{https://junit.org/junit4/} [accessed on 4,June 2021]} is a testing framework, and widely used for Java unit testing. The bug was reported by one of the contributor of the Junit4 repository on Github. The issue describes an ExceptionInInitializerError has been thrown when filtering tests by category, indicating there is an issue with class initialisation. The solution is to add more arguments to \texttt{Class.forName()} method. The class \texttt{java.lang.Class} \cite{javaclassapi} provides two overloading methods to load a class: one with providing the fully qualified name for a class (i.e. \texttt{Class.name("name")}) and another one provides a detailed class loading scenario (i.e. \texttt{Class.name("name", false, getClassLoader())}) by specifying on which class loader that the class will be loaded, and whether this class should be initialised or not. 
+%should I mention that Class.name("name") is equavenlet to full initialization : Class.name("name", true, getClassLoader())
+In this case, a full initialization of a class is not required therefore the second argument should be flagged as false. 
+%This is a small fix but could be hard for any static analyser/bug detection tool to pick it up as the bug happens at the runtime.
 
 
 \begin{table}[h!]
@@ -270,11 +297,12 @@ Proxy.getInvocationHandler() &dynamic proxy& 1                                  
     issue link &  \url{https://github.com/junit-team/junit4/issues/359}
   \end{tabular}
 \end{table}
-
-%junit-team/junit4 Class.forName() OVERLOAD_METHOD_MORE_ARGS Fix for #359  Contributor bug/nonregression https://github.com/junit-team/junit4/issues/359 https://github.com/junit-team/junit4/commit/b1068dc55c95d1000e07b71d3a9d9a2fd26bfff9                                      
+                                  
 
 \subsection{spring-framework}
 
+Spring framework\footnote{\url{https://spring.io/} [accessed on 4,June 2021]} is well-known application framework for Java. A bug was reported on a class \texttt{org.springframework.\\jms.connection.CachedMessageProducer}. It is a model to manage cached message where a reflection is involved. The fix is simple -- an argument has been changed from \texttt{target} to \texttt{CachedMessageProducer.this}. This indicates the target instance that the method is invoked upon has been changed. 
+%Interestingly insight is that the "target" instance is the super class of CachedMessageProducer. but what is the implication of this? I guess the class requires the specific type of this class. 
 \begin{table}[h!]
   \footnotesize
   \label{tab:spring}
@@ -288,18 +316,18 @@ Proxy.getInvocationHandler() &dynamic proxy& 1                                  
   \end{tabular}
 \end{table}
 %spring-projects/spring-framework  Method.invoke()  CHANGE_IDENTIFIER  Jms2MessageProducerInvocationHandler properly delegates to CachedMess…  Collaborator  type: bug https://github.com/spring-projects/spring-framework/issues/16566  https://github.com/spring-projects/spring-framework/commit/134e5a2aecf913bcc184d5d3ae845a13d5369078                                     
-\subsection{camel-spring-boot}
-Apache camel-spring-boot project is... for different method with same arguments
+\subsection{intellij-community}
+Intellij IDEA\footnote{\url{https://www.jetbrains.com/idea/} [accessed on 4,June 2021]} is widely used IDE for many developers. This bug was found at a particular commit that indicated by the commit message: ``A fix for Groovy formatter tests....''.  We also found other 5 bugs that are similar to this pattern, where the call site has been changed with arguments remain the same. The method \texttt{getDeclaredField} \cite{javaclassapi} returns all declared field within the class, whereas the method \texttt{getField} \cite{javaclassapi} returns public member fields of the class. Even though there is no related issue created for it, we believe the fix implies they intend to access public fields via reflection.
 \begin{table}[h!]
   \footnotesize
-  \label{tab:camel}
+  \label{tab:intellij}
   \begin{tabular}{rp{5cm}}
-    before fix:  &  \footnotesize{\texttt{type.getDeclaredConstructor(String.class);}} \\
-    after fix:  &  \footnotesize{\texttt{type.getConstructor(String.class);}} \\
+    before fix:  &  \footnotesize{\texttt{CodeStyleSettings.class.getDeclaredField(name);}} \\
+    after fix:  &  \footnotesize{\texttt{CodeStyleSettings.class.getField(name);}} \\
     bug type:   &  \texttt{DIFFERENT\_METHOD\_SAME\_ARGS} \\
-    fix commit: &  \texttt{8a4f25a6dcaae2b704bce5794e007131236cb0d7} \\
-    commit message:   &  \texttt{Fixes CAMEL-13437: now also looking for constructor in superclasses.}\\
-    issue link &  \url{https://issues.apache.org/jira/browse/CAMEL-13437}
+    fix commit: &  \texttt{3943eb1f3833c96392538fe671c05d7718a81039} \\
+    commit message:   &  \texttt{A fix for Groovy formatter tests (using getField() instead of getDecl…aredField() from CodeStyleSettings).}\\
+    issue link &  \url{none}
   \end{tabular}
 \end{table}
 %apache/ws-axiom Class.getDeclaredConstructor()  DIFFERENT_METHOD_SAME_ARGS  Fixes CAMEL-13437: now also looking for constructor in superclasses.  Contributor bug https://issues.apache.org/jira/browse/CAMEL-13437 https://github.com/apache/camel-spring-boot/commit/8a4f25a6dcaae2b704bce5794e007131236cb0d7                                                                          
