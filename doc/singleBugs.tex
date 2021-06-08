@@ -85,36 +85,20 @@
 %% Of note is the shared affiliation of the first two authors, and the
 %% "authornote" and "authornotemark" commands
 %% used to denote shared contribution to the research.
-\author{Ben Trovato}
-\authornote{Both authors contributed equally to this research.}
-\email{trovato@corporation.com}
-\orcid{1234-5678-9012}
-\author{G.K.M. Tobin}
-\authornotemark[1]
-\email{webmaster@marysville-ohio.com}
-\affiliation{%
-  \institution{Institute for Clarity in Documentation}
-  \streetaddress{P.O. Box 1212}
-  \city{Dublin}
-  \state{Ohio}
-  \country{USA}
-  \postcode{43017-6221}
-}
 
-\author{Lars Th{\o}rv{\"a}ld}
+\author{Li Sui}
 \affiliation{%
-  \institution{The Th{\o}rv{\"a}ld Group}
-  \streetaddress{1 Th{\o}rv{\"a}ld Circle}
-  \city{Hekla}
-  \country{Iceland}}
-\email{larst@affiliation.org}
+  \institution{Massey University}
+  \city{Palmerston North}
+  \country{New Zealand}}
+\email{Li_Sui@hotmail.com}
 
-\author{Valerie B\'eranger}
+\author{Amjed Tahir}
 \affiliation{%
-  \institution{Inria Paris-Rocquencourt}
-  \city{Rocquencourt}
-  \country{France}
-}
+  \institution{Massey University}
+  \city{Palmerston North}
+  \country{New Zealand}}
+\email{A.Tahir@massey.ac.nz}
 
 
 %%
@@ -123,13 +107,13 @@
 %% other information printed in the page headers. This command allows
 %% the author to define a more concise list
 %% of authors' names for this purpose.
-\renewcommand{\shortauthors}{Trovato and Tobin, et al.}
+%\renewcommand{\shortauthors}{Trovato and Tobin, et al.}
 
 %%
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-	TODO:
+The use of dynamic language features in modern program language is the main source of unsound static program analysis \cite{livshits2015defense, sui2018soundness}. As one of the application of static program analysis, bug detection tools also have troubles to detect dynamic language features related bugs. However, simple bugs with minimum efforts to fix,  grant an opportunity for static program analysis to simplified the analysis as all fix changes happened within a single statement. We decided to investigate it by mining the SStuBs dataset \cite{karampatsis2020often}. With the report of 58 identical bugs that are related to a number of dynamic features, we hope that they can inspire and elevate the future works for both program repair and static analysis community.
 \end{abstract}
 
 %%
@@ -161,8 +145,10 @@
 % </ccs2012>
 % \end{CCSXML}
 
-\ccsdesc[500]{Empirical software engineering,}
+\ccsdesc[500]{Empirical software engineering}
+\ccsdesc{Mining software repository}
 \ccsdesc[300]{Program analysis}
+\ccsdesc{Java program language}
 \ccsdesc{Java reflection}
 \ccsdesc[100]{Bug detection}
 
@@ -204,7 +190,7 @@ We discuss the methodology used in our study in this section. Figure \ref{fig:pr
 
 Those 6 communities have quite numbers of projects so we need to harvest the url for each project in order to clone the repository. We use HTTP GET requests to retrieve community pages, which contain a list of projects. Then we use the Jsoup\footnote{\url{https://jsoup.org} [accessed on 12,May 2021]}: a HTML parser to retrieved HTML DOM that contains project urls. At this stage, we remove some projects that have been included the original SStuBs dataset to avoid duplications. All projects are cloned to local disk via a git clone command.  
 %%explain why not use GitHub API, because we aim upto date project with latest commits and issues
-The script that is then used to obtain single statement bugs from each cloned repository is provided by the SStuBs study\footnote{\url{https://github.com/mast-group/mineSStuBs} [accessed on 12,May 2021]}.  Once we have both datasets (original SStuBs and additional datasets from selected software communities), we use a script to identify single statement bugs that are relate to dynamic features. To be precise to what we refer to as dynamic language features, we select keywords from callsites to locate changes in fix commits. Those keywords are provided in Table \ref{tab:keyword}. We select those key words based on Sui et al.\cite{sui2018soundness} - a micro benchmark which contains a collection of usages for dynamic language features.
+The script that is then used to obtain single statement bugs from each cloned repository is provided by the SStuBs study\footnote{\url{https://github.com/mast-group/mineSStuBs} [accessed on 12,May 2021]}.  Once we have both datasets (original SStuBs and additional datasets from selected software communities), we use a script to identify single statement bugs that are relate to dynamic features. To be precise to what we refer to as dynamic language features, we select keywords from callsites to locate changes in fix commits. Those keywords are provided in Table \ref{tab:keyword}. We select those key words based on Sui et al. \cite{sui2018soundness} - a micro benchmark which contains a collection of usages for dynamic language features.
 
 \begin{table}[h]
 \scriptsize
@@ -232,7 +218,7 @@ Keyword                  & Full Name                    \\ \hline
 \end{table}
 
 \section{Results and Discussion}
-Addition to SStuBs dataset, we mined other 1,032 Java projects from Github. From those projects, we extracted a total of 33,137 single statement bugs.\footnote{SStuBs\cite{karampatsis2020often} has 1,000 projects with 63,923 single statement bugs.} After filtering by keywords provided in Table \ref{tab:keyword}, we found 120 dynamic feature related bugs in SStuBs and 77 in the additional dataset. We then conducted a manual validation to check duplicates and false positives. We ended up with 58 identical single statement bugs. Table \ref{tab:results-overview} shows an overview of a number of bugs for each category.\footnote{Note that there are 4 bugs that appear across multiple categories. The total number of bugs identified is 62.}
+Addition to SStuBs dataset, we mined other 1,032 Java projects from Github. From those projects, we extracted a total of 33,137 single statement bugs.\footnote{SStuBs \cite{karampatsis2020often} has 1,000 projects with 63,923 single statement bugs.} After filtering by keywords provided in Table \ref{tab:keyword}, we found 120 dynamic feature related bugs in SStuBs and 77 in the additional dataset. We then conducted a manual validation to check duplicates and false positives. We ended up with 58 identical single statement bugs. Table \ref{tab:results-overview} shows an overview of a number of bugs for each category.\footnote{Note that there are 4 bugs that appear across multiple categories. The total number of bugs identified is 62.}
 
 \begin{table}[h]
 \caption{results overview}
@@ -256,7 +242,7 @@ Proxy.getInvocationHandler() &dynamic proxy& 1                                  
 
 
 32 out of 58 bugs are indicated in the issue tracking system. They provide rich text about why the bug occurs and how to solve it. Furthermore, we analysed the person who reported the issue. Two categories has been identified: (1) community users who encountered issues and therefore reported them. (2) contributor who built the project and identified issues. There are 11/32 issues have been reported by community users and 18/32 have been reported by contributors. We believe that the reported issues by community users provide more piratical scenario that is unlikely to be tested by developers. 
-%we then disscus it in the furter work: run test cases to see wether it can be covered or not.
+%we then disscus it in the conclusion: run test cases to see wether it can be covered or not.
 Table \ref{tab:results-fixmethod} shows a number of fix methods for bugs. Those methods have already been discussed in SStuBs \cite{karampatsis2020often}. Most of bugs have been resolved via either providing more arguments for overloaded methods (OVERLOAD\_METHOD\_MORE\_ARGS) or changing arguments (CHANGE\_IDENTIFIER). This indicates dynamic features are likely to be wrongly handled when passing arguments. We discuss some of bugs in more details next.
 
 \begin{table}[h]
@@ -333,14 +319,15 @@ Intellij IDEA\footnote{\url{https://www.jetbrains.com/idea/} [accessed on 4,June
 
 \section{Conclusion}
 
-In this paper, we have discovered how dynamic language features relate to real-word bugs, especially with single statement bugs. We are surprised that only 58 bugs are found across 2,032 projects. However, given the complicity of analysing dynamic features, we strongly believe those findings can help the program analysis community to improve their tool to detect those bugs.  We want to point out the fact that those bugs are fixed within a single statement -- this implies the cost of fixing such bug is low, and therefore detecting it can be easy as well. From the static analysis point of view, the interests in finding gap exist in static analysis \cite{sui2020recall} w.r.t using dynamic language features in Java have merged in recent years.  Those mined bugs provide practical sense of how dynamic features are used in real-word projects.
+In this paper, we have discovered how dynamic language features relate to real-word bugs, especially with single statement bugs. We are surprised that only 58 bugs are found across 2,032 projects. However, given the complicity of analysing dynamic features, we strongly believe those findings can help the program analysis community to improve their tool to detect those bugs.  We want to point out the fact that those bugs are fixed within a single statement -- this implies the cost of fixing such bug is low, and therefore detecting it can be easy as well. From the static analysis point of view, the interests in finding gaps exist in static analysis w.r.t using dynamic language features in Java \cite{sui2020recall} have merged in recent years.  Those mined bugs provide practical sense of how dynamic features are used in real-word projects.
 
 We foresee a number of possible works from this paper.  Since the fix happened within a single statement, we would like to know the scope of the fix candidate, for instance, is the changed identifier in the same method or the same class? This will provide us a good understanding on how close the correct fix to problematic statement, and therefore narrow the analysis scope. 
 
 We have discussed the role of bug reporters -- A community user who encountered a bug may have a specific executing scenario. A further analysis of such reported issues, hopefully with full reported stack traces, can help with a better understanding on why it is a bug. Moreover, reported stack traces can be used to feed to static analysis tools \cite{sui2017use} to detect such bug. As project contributors did create issues for those bugs, we are wondering whether the corresponding test can cover it or not. There are two meaning of the word ``cover'': (1) test coverage, such as branch coverage, line coverage. (2) desired program behaviours are tested.   
 
-
+%maybe this is too far away from this study, but it is what I have in my mind. 
 We found there is a lack of study on the behaviour of dynamic language features, particularly how they being used in real-world programs. A further study on the role of dynamic language features may be required. We would like to know that whether they likely to be used within a program model or act as a bridge that open for other program models. The reason for this concern is the static analysis is usually constrained by analysis scope -- if we want to perform a whole-program analysis then all program models must be included. This is a very issue for a program (as a provider) that is design to open to other program models (i.e. consumer), Spring framework is a good example being a provider that many applications depend on. 
+% more further works? need to disscus it
 
 % \section{Acknowledgments}
 
