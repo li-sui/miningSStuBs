@@ -329,11 +329,18 @@ Intellij IDEA\footnote{\url{https://www.jetbrains.com/idea/} [accessed on 4,June
     commit message:   &  \texttt{A fix for Groovy formatter tests (using getField() instead of getDecl…aredField() from CodeStyleSettings).}\\
     issue link &  \url{none}
   \end{tabular}
-\end{table}
-%apache/ws-axiom Class.getDeclaredConstructor()  DIFFERENT_METHOD_SAME_ARGS  Fixes CAMEL-13437: now also looking for constructor in superclasses.  Contributor bug https://issues.apache.org/jira/browse/CAMEL-13437 https://github.com/apache/camel-spring-boot/commit/8a4f25a6dcaae2b704bce5794e007131236cb0d7                                                                          
+\end{table}   
+
 \section{Conclusion}
 
+In this paper, we have discovered how dynamic language features relate to real-word bugs, especially with single statement bugs. We are surprised that only 58 bugs are found across 2,032 projects. However, given the complicity of analysing dynamic features, we strongly believe those findings can help the program analysis community to improve their tool to detect those bugs.  We want to point out the fact that those bugs are fixed within a single statement -- this implies the cost of fixing such bug is low, and therefore detecting it can be easy as well. From the static analysis point of view, the interests in finding gap exist in static analysis \cite{sui2020recall} w.r.t using dynamic language features in Java have merged in recent years.  Those mined bugs provide practical sense of how dynamic features are used in real-word projects.
 
+We foresee a number of possible works from this paper.  Since the fix happened within a single statement, we would like to know the scope of the fix candidate, for instance, is the changed identifier in the same method or the same class? This will provide us a good understanding on how close the correct fix to problematic statement, and therefore narrow the analysis scope. 
+
+We have discussed the role of bug reporters -- A community user who encountered a bug may have a specific executing scenario. A further analysis of such reported issues, hopefully with full reported stack traces, can help with a better understanding on why it is a bug. Moreover, reported stack traces can be used to feed to static analysis tools \cite{sui2017use} to detect such bug. As project contributors did create issues for those bugs, we are wondering whether the corresponding test can cover it or not. There are two meaning of the word ``cover'': (1) test coverage, such as branch coverage, line coverage. (2) desired program behaviours are tested.   
+
+
+We found there is a lack of study on the behaviour of dynamic language features, particularly how they being used in real-world programs. A further study on the role of dynamic language features may be required. We would like to know that whether they likely to be used within a program model or act as a bridge that open for other program models. The reason for this concern is the static analysis is usually constrained by analysis scope -- if we want to perform a whole-program analysis then all program models must be included. This is a very issue for a program (as a provider) that is design to open to other program models (i.e. consumer), Spring framework is a good example being a provider that many applications depend on. 
 
 % \section{Acknowledgments}
 
