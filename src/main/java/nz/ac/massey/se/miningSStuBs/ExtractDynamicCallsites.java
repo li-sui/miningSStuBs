@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class ExtractDynamicCallsites {
     //path to bug file. TODO:configurable
-    static final String sstubsFile= "/home/lsui/projects/miningSStuBs/results/bugs.json";
+    static final String sstubsFile= "/home/lsui/projects/PilotExperiments/SStuBs/old-sstubs/bugsLarge";
 
     public static void main(String[] args) throws Exception{
         Gson gson =new Gson();
