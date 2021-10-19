@@ -13,6 +13,8 @@ public class Configuration {
     int requestInterval;
     //target group. e.g. google, apache, eclipse. prior to the search, you need to find out how many pages are there.
     List<Community> communities;
+    //indicate the date of the last update to pages from above communities
+    String lastUpdate;
 
     public class Community{
         String name;
@@ -41,5 +43,9 @@ public class Configuration {
 
     public List<Community> getCommunities() {
         return communities;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
     }
 }

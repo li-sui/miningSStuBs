@@ -2,12 +2,13 @@
     "communities" : [
         {"name":"spring-projects", "maxPage": 5},
         {"name":"apache", "maxPage": 34},
-        {"name":"eclipse", "maxPage": 13},
-        {"name":"google", "maxPage": 7},
+        {"name":"eclipse", "maxPage": 8},
+        {"name":"google", "maxPage": 8},
         {"name":"JetBrains", "maxPage": 6},
         {"name":"mozilla", "maxPage": 1}
     ],
     "requestInterval": 5000,
-    "url": "https://github.com",
-    "language": "java"
+    "url": "https://github.com/orgs",
+    "language": "java",
+    "lastUpdate": "20-Oct-2021"
 }

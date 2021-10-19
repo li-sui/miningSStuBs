@@ -36,4 +36,13 @@ public class BugData {
     public String getSourceAfterFix() {
         return sourceAfterFix;
     }
+
+    @Override
+    public String toString() {
+        return "BugData{" +
+                "fixType='" + fixType + '\'' +
+                ", fixCommitSHA1='" + fixCommitSHA1 + '\'' +
+                ", projectName='" + projectName + '\'' +
+                '}';
+    }
 }

@@ -28,17 +28,19 @@ public class ExtractProjectsFromGithub {
             int total =0;
             System.out.println("mining for "+community.getName()+"....");
             for(int page=1;page<=community.getMaxPage();page++){
-                Document doc = Jsoup.connect(url+"/"+community.getName()+"?language="+language+"&page="+page).cookies(Util.cookie).get();
+
+                Document doc = Jsoup.connect(url+"/"+community.getName()+"/repositories?language="+language+"&page="+page).cookies(Util.cookie).get();
                 //TODO:hard coded elements, need to update if github webpage changes
                 List<Element> repos=doc.getElementsByAttributeValue("data-hovercard-type","repository");
                 for(Element element: repos){
-                    String project = element.text();
+                    String repoName = element.text();
+                    String repoUrl= element.attr("href");
                     total++;
                     //checking the mined project that has been included in SStuBs dataset
-                    if(!isDup(community.getName(),project)) {
-                        String projectUrl= url+"/"+community.getName()+"/"+project;
+                    if(!isDup(community.getName(),repoName)) {
+                        String fullUrl = "https://github.com"+repoUrl;
                         //format: projectUrl,communityName,projectName
-                        sb.append(projectUrl);sb.append(",");sb.append(community.getName());sb.append(",");sb.append(project);
+                        sb.append(fullUrl);sb.append(",");sb.append(community.getName());sb.append(",");sb.append(repoName);
                         sb.append("\n");
                         count++;
                     }

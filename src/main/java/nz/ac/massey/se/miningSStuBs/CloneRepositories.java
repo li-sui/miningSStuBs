@@ -13,9 +13,9 @@ import java.nio.charset.Charset;
  */
 public class CloneRepositories {
     //list of projects from Github.
-    static final String projectsFilePath="githubCommunityProjects.csv";
+    static final String projectsFilePath="allJavaProjects.csv";
     //directory that projects are cloned to. TODO:configurable
-    static final String clonedDir="/home/lsui/projects/githubProjects";
+    static final String clonedDir="/home/lsui/projects/allJavaProjects";
 
     public static void main(String[] args) throws Exception{
         String[] projects= FileUtils.readFileToString(new File(projectsFilePath),

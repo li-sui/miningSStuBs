@@ -9,7 +9,7 @@ import java.io.File;
 public class SStuBsMiner {
     //TODO:configure before running it
     //dir to repositories
-    static final String inputDir="/home/lsui/projects/githubProjects";
+    static final String inputDir="/home/lsui/projects/allJavaProjects";
     //dir to output
     static final String outputDir= "results";
     public static void main(String[] args) throws Exception{
