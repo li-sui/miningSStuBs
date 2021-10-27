@@ -1,0 +1,161 @@
+[
+  {
+    "returnType": "ClassLoader", "keywords" :
+    [
+      {"callsite": ".getClassLoader()","arguments": ["none"]},
+      {"callsite": ".getSystemClassLoader()","arguments": ["none"]},
+      {"callsite": "new ClassLoader","arguments": ["java.lang.ClassLoader"]},
+      {"callsite": "new ClassLoader","arguments": ["none"]},
+      {"callsite": ".getParent()","arguments": ["none"]}
+    ]
+  },
+  {
+    "returnType": "java.lang.Class","keywords":
+    [
+      {"callsite": ".forName(","arguments": ["java.lang.String"]},
+      {"callsite": ".forName(","arguments": ["java.lang.String","boolean","java.lang.ClassLoader"]},
+      {"callsite": ".loadClass","arguments": ["java.lang.String"]},
+      {"callsite": ".class","arguments": ["none"]},
+      {"callsite": ".getClass()","arguments": ["none"]},
+      {"callsite": ".getComponentType()","arguments": ["none"]},
+      {"callsite": ".getDeclaringClass()","arguments": ["none"]},
+      {"callsite": ".getEnclosingClass()","arguments": ["none"]},
+      {"callsite": ".asSubclass(","arguments": ["java.lang.Class"]},
+      {"callsite": ".getProxyClass","arguments": ["java.lang.ClassLoader","java.lang.Class*"]},
+      {"callsite": ".getSuperclass()","arguments": ["none"]},
+      {"callsite": ".defineClass(","arguments": ["byte[]","int","int"]},
+      {"callsite": ".defineClass(","arguments": ["java.lang.String","byte[]","int","int"]},
+      {"callsite": ".defineClass(","arguments": ["java.lang.String","byte[]","int","int","java.security.ProtectionDomain"]},
+      {"callsite": ".defineClass(","arguments": ["java.lang.String","java.nio.ByteBuffer","java.security.ProtectionDomain"]},
+      {"callsite": ".findClass(","arguments": ["java.lang.String"]},
+      {"callsite": ".findLoadedClass(","arguments": ["java.lang.String"]},
+      {"callsite": ".findSystemClass(","arguments": ["java.lang.String"]},
+      {"callsite": ".loadClass(","arguments": ["java.lang.String"]},
+      {"callsite": ".loadClass(","arguments": ["java.lang.String","boolean"]},
+      {"callsite": ".getReturnType()","arguments": ["none"]}
+    ]
+  },
+  {
+    "returnType": "java.lang.Class[]","keywords":
+    [
+      {"callsite": ".getClasses()","arguments": ["none"]},
+      {"callsite": ".getDeclaredClasses()","arguments": ["none"]},
+      {"callsite": ".getInterfaces()","arguments": ["none"]},
+      {"callsite": ".getExceptionTypes()","arguments": ["none"]},
+      {"callsite": ".getParameterTypes()","arguments": ["none"]}
+    ]
+  },
+  {
+    "returnType": "java.lang.reflect.Method","keywords":
+    [
+      {"callsite": ".getDeclaredMethod(","arguments": ["java.lang.String","java.lang.Class*"]},
+      {"callsite": ".getMethod(","arguments": ["java.lang.String","java.lang.Class*"]},
+      {"callsite": ".getEnclosingMethod()","arguments": ["none"]}
+    ]
+  },
+  {
+    "returnType": "java.lang.reflect.Method[]","keywords":
+  [
+    {"callsite": ".getDeclaredMethods()","arguments": ["none"]},
+    {"callsite": ".getMethods()","arguments": ["none"]}
+  ]
+  },
+  {
+    "returnType": "java.lang.reflect.Field","keywords":
+  [
+    {"callsite": ".getDeclaredField(","arguments": ["java.lang.String"]},
+    {"callsite": ".getField(","arguments": ["java.lang.String"]}
+  ]
+  },
+  {
+    "returnType": "java.lang.reflect.Field[]","keywords":
+  [
+    {"callsite": ".getDeclaredFields()","arguments": ["none"]},
+    {"callsite": ".getFields()","arguments": ["none"]}
+  ]
+  },
+  {
+    "returnType": "java.lang.reflect.Constructor","keywords":
+  [
+    {"callsite": ".getDeclaredConstructor(","arguments": ["java.lang.String","java.lang.Class*"]},
+    {"callsite": ".getConstructor(","arguments": ["java.lang.String","java.lang.Class*"]},
+    {"callsite": ".getEnclosingConstructor()","arguments": ["none"]}
+  ]
+  },
+  {
+    "returnType": "java.lang.reflect.Constructor[]","keywords":
+  [
+    {"callsite": ".getDeclaredConstructors()","arguments": ["none"]},
+    {"callsite": ".getConstructors()","arguments": ["none"]}
+  ]
+  },
+  {
+    "returnType": "void","keywords":
+    [
+      {"callsite": ".set(","arguments": ["java.lang.Object","java.lang.Object"]},
+      {"callsite": ".setBoolean(","arguments": ["java.lang.Object","boolean"]},
+      {"callsite": ".setByte(","arguments": ["java.lang.Object","byte"]},
+      {"callsite": ".setChar(","arguments": ["java.lang.Object","char"]},
+      {"callsite": ".setDouble(","arguments": ["java.lang.Object","double"]},
+      {"callsite": ".setFloat(","arguments": ["java.lang.Object","float"]},
+      {"callsite": ".setInt(","arguments": ["java.lang.Object","int"]},
+      {"callsite": ".setLong(","arguments": ["java.lang.Object","long"]},
+      {"callsite": ".setShort(","arguments": ["java.lang.Object","short"]},
+      {"callsite": ".set(","arguments": ["java.lang.Object","int","java.lang.Object"]},
+      {"callsite": ".setBoolean(","arguments": ["java.lang.Object","int","boolean"]},
+      {"callsite": ".setByte(","arguments": ["java.lang.Object","int","byte"]},
+      {"callsite": ".setChar(","arguments": ["java.lang.Object","int","char"]},
+      {"callsite": ".setDouble(","arguments": ["java.lang.Object","int","double"]},
+      {"callsite": ".setFloat(","arguments": ["java.lang.Object","int","float"]},
+      {"callsite": ".setInt(","arguments": ["java.lang.Object","int","int"]},
+      {"callsite": ".setLong(","arguments": ["java.lang.Object","int","long"]},
+      {"callsite": ".setShort(","arguments": ["java.lang.Object","int","short"]},
+      {"callsite": ".setClassAssertionStatus(","arguments": ["java.lang.String","boolean"]},
+      {"callsite": ".setDefaultAssertionStatus(","arguments": ["boolean"]},
+      {"callsite": ".setPackageAssertionStatus(","arguments": ["java.lang.String","boolean"]},
+      {"callsite": ".setAccessible(","arguments": ["boolean"]}
+    ]
+  },
+  {
+    "returnType": "","keywords":
+    [
+      {"callsite": "","arguments": [""]}
+    ]
+  },
+  {
+    "returnType": "","keywords":
+    [
+      {"callsite": "","arguments": [""]}
+    ]
+  },
+  {
+    "returnType": "","keywords":
+    [
+      {"callsite": "","arguments": [""]}
+    ]
+  },
+  {
+    "returnType": "","keywords":
+    [
+      {"callsite": "","arguments": [""]}
+    ]
+  },
+  {
+    "returnType": "","keywords":
+    [
+      {"callsite": "","arguments": [""]}
+    ]
+  },
+  {
+    "returnType": "","keywords":
+    [
+      {"callsite": "","arguments": [""]}
+    ]
+  },
+  {
+    "returnType": "","keywords":
+    [
+      {"callsite": "","arguments": [""]}
+    ]
+  }
+]
