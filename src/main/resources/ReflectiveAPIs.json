@@ -117,45 +117,87 @@
     ]
   },
   {
-    "returnType": "","keywords":
+    "returnType": "java.lang.Object","keywords":
     [
-      {"callsite": "","arguments": [""]}
+      {"callsite": ".newInstance(","arguments": ["java.lang.Object*"]},
+      {"callsite": ".newInstance()","arguments": ["none"]},
+      {"callsite": ".newInstance(","arguments": ["java.lang.Class","int*"]},
+      {"callsite": ".newProxyInstance(","arguments": ["java.lang.ClassLoader","java.lang.Class[]","java.lang.Object"]},
+      {"callsite": ".invoke(","arguments": ["java.lang.Object","java.lang.Object*"]},
+      {"callsite": ".get(","arguments": ["java.lang.Object"]},
+      {"callsite": ".get(","arguments": ["java.lang.Object","int"]},
+      {"callsite": ".cast(","arguments": ["java.lang.Object"]},
+      {"callsite": ".getDefaultValue()","arguments": ["none"]},
+      {"callsite": ".getInvocationHandler(","arguments": ["java.lang.Object"]},
+      {"callsite": ".getAnnotation(","arguments": ["java.lang.Class"]}
     ]
   },
   {
-    "returnType": "","keywords":
+    "returnType": "java.lang.Object[]","keywords":
     [
-      {"callsite": "","arguments": [""]}
+      {"callsite": ".getSigners()","arguments": ["none"]},
+      {"callsite": ".getEnumConstants()","arguments": ["none"]},
+      {"callsite": ".getDeclaredAnnotations()","arguments": ["none"]}
     ]
   },
   {
-    "returnType": "","keywords":
+    "returnType": "boolean","keywords":
     [
-      {"callsite": "","arguments": [""]}
+      {"callsite": ".isAssignableFrom(","arguments": ["java.lang.Class"]},
+      {"callsite": ".isInstance(","arguments": ["java.lang.Object"]},
+      {"callsite": ".isProxyClass(","arguments": ["java.lang.Class"]},
+      {"callsite": ".equals(","arguments": ["java.lang.Object"]},
+      {"callsite": "==","arguments": ["none"]},
+      {"callsite": "!=","arguments": ["none"]},
+      {"callsite": ".isAccessible(","arguments": ["java.lang.Class"]},
+      {"callsite": ".desiredAssertionStatus()","arguments": ["none"]},
+      {"callsite": ".isAnnotationPresent(","arguments": ["java.lang.Class"]},
+      {"callsite": ".isAnnotation()","arguments": ["none"]},
+      {"callsite": ".isAnonymousClass()","arguments": ["none"]},
+      {"callsite": ".isArray()","arguments": ["none"]},
+      {"callsite": ".isInterface()","arguments": ["none"]},
+      {"callsite": ".isLocalClass()","arguments": ["none"]},
+      {"callsite": ".isMemberClass()","arguments": ["none"]},
+      {"callsite": ".isPrimitive()","arguments": ["none"]},
+      {"callsite": ".isSynthetic()","arguments": ["none"]},
+      {"callsite": ".isBridge()","arguments": ["none"]},
+      {"callsite": ".isBridge()","arguments": ["none"]},
+      {"callsite": ".isVarArgs()","arguments": ["none"]}
     ]
   },
   {
-    "returnType": "","keywords":
+    "returnType": "int","keywords":
+  [
+    {"callsite": ".getModifiers()","arguments": ["none"]}
+  ]
+  },
+  {
+    "returnType": "java.lang.String","keywords":
     [
-      {"callsite": "","arguments": [""]}
+      {"callsite": ".getPackage()","arguments": ["none"]},
+      {"callsite": ".toGenericString()","arguments": ["none"]},
+      {"callsite": ".toString()","arguments": ["none"]},
+      {"callsite": ".getName()","arguments": ["none"]},
+      {"callsite": ".getTypeName()","arguments": ["none"]},
+      {"callsite": ".getSimpleName()","arguments": ["none"]}
     ]
   },
   {
-    "returnType": "","keywords":
+    "returnType": "java.security.ProtectionDomain","keywords":
     [
-      {"callsite": "","arguments": [""]}
+      {"callsite": ".getProtectionDomain()","arguments": ["none"]}
     ]
   },
   {
-    "returnType": "","keywords":
+    "returnType": "java.net.URL","keywords":
     [
-      {"callsite": "","arguments": [""]}
+      {"callsite": ".getResource(","arguments": ["java.lang.String"]}
     ]
   },
   {
-    "returnType": "","keywords":
+    "returnType": "java.io.InputStream","keywords":
     [
-      {"callsite": "","arguments": [""]}
+      {"callsite": ".getResourceAsStream(","arguments": ["java.lang.String"]}
     ]
   }
 ]
