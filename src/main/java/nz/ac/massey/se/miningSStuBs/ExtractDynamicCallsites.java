@@ -18,40 +18,18 @@ import java.util.Set;
  */
 public class ExtractDynamicCallsites {
     //path to bug file. TODO:configurable
-    static final String sstubsFile= "/home/lsui/projects/PilotExperiments/SStuBs/old-sstubs/bugsLarge";
+    static final File sstubsFile=  new File("/home/lsui/projects/miningSStuBs/results/bugs.json");
+    static final File reflectiveAPIFile= new File("src/main/resources/ReflectiveAPIs.json");
 
     public static void main(String[] args) throws Exception{
         Gson gson =new Gson();
-        String input = FileUtils.readFileToString(new File(sstubsFile), Charset.defaultCharset());
-        List<BugData> reportList= gson.fromJson(input,new TypeToken<List<BugData>>(){}.getType());
-        //java.lang.reflect.Method
-        List<BugData> invokeList=new ArrayList<>();
-        List<BugData> getDeclaredMethodList=new ArrayList<>();
-        //java.lang.Class
-        List<BugData> newInstanceList=new ArrayList<>();
-        List<BugData> forNameList=new ArrayList<>();
-        List<BugData> getDeclaredConstructorList=new ArrayList<>();
-        List<BugData> getDeclaredFieldList=new ArrayList<>();
-        List<BugData> getClassLoaderList=new ArrayList<>();
-        //java.lang.ClassLoader
-        List<BugData> findClassList=new ArrayList<>();
-        List<BugData> defineClassList=new ArrayList<>();
-        List<BugData> loadClassList=new ArrayList<>();
-        //java.lang.reflect.Proxy
-        List<BugData> newProxyInstanceList=new ArrayList<>();
-        List<BugData> getInvocationHandlerList=new ArrayList<>();
-        //java.io.ObjectInputStream
-        List<BugData> readObjectList=new ArrayList<>();
-        //sun.misc.unsafe
-        List<BugData> allocateInstanceList= new ArrayList<>();
-        //java.util.ServiceLoader.load()
-        List<BugData> serviceLoaderList= new ArrayList<>();
-
-        Set<String> projectSet=new HashSet<>();
-        Set<String> totalFixedCommitSet=new HashSet<>();
-        Set<String> bugFileSet= new HashSet<>();
+        String bugContent = FileUtils.readFileToString(sstubsFile, Charset.defaultCharset());
+        String reflectContent= FileUtils.readFileToString(reflectiveAPIFile, Charset.defaultCharset());
+        List<BugData> reportList= gson.fromJson(bugContent ,new TypeToken<List<BugData>>(){}.getType());
+        List<ReflectiveAPI> reflectiveAPIList=gson.fromJson(reflectContent,new TypeToken<List<ReflectiveAPI>>(){}.getType());
 
         int total=0;
+
         for(BugData bugReport: reportList){
             String beforeFix= bugReport.getSourceBeforeFix();
             String afterFix=bugReport.getSourceAfterFix();
@@ -60,107 +38,38 @@ public class ExtractDynamicCallsites {
                     +bugReport.getFixCommitSHA1();
             String bugSourceCode="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
                     +bugReport.getFixCommitParentSHA1()+"/"+bugReport.getBugFilePath();
-
-            if(StringUtils.countMatches(beforeFix,".invoke(") !=0){
-                invokeList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".getDeclaredMethod(")!=0){
-                getDeclaredMethodList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".newInstance(")!=0){
-                newInstanceList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".forName(")!=0){
-                forNameList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".getDeclaredConstructor(")!=0){
-                getDeclaredConstructorList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".getDeclaredField(")!=0){
-                getDeclaredFieldList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".getClassLoader(")!=0){
-                getClassLoaderList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".findClass(")!=0){
-                findClassList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".defineClass(")!=0){
-                defineClassList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".loadClass(")!=0){
-                loadClassList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".readObject(")!=0){
-                readObjectList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".allocateInstance(")!=0){
-                allocateInstanceList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-
-            if(StringUtils.countMatches(beforeFix,".getInvocationHandler(")!=0){
-                getInvocationHandlerList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-            if(StringUtils.countMatches(beforeFix,".newProxyInstance(")!=0){
-                newProxyInstanceList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
-            }
-
-            if(StringUtils.countMatches(beforeFix,".load(")!=0){
-                serviceLoaderList.add(bugReport);
-                totalFixedCommitSet.add(fixUrl);
-                projectSet.add(bugReport.getProjectName());
+            outerloop:
+            for(ReflectiveAPI api: reflectiveAPIList){
+                for(Keyword keyword:api.getKeywords()){
+                    if(beforeFix.contains(keyword.getCallsite()) || afterFix.contains(keyword.getCallsite())){
+                        total=total+1;
+                        break outerloop;
+                    }
+                }
             }
         }
-        System.out.println("invoke: " +invokeList.size());
-        System.out.println("getDeclaredMethod: " +getDeclaredMethodList.size());
-        System.out.println("newInstance: " +newInstanceList.size());
-        System.out.println("forName: " +forNameList.size());
-        System.out.println("getDeclaredConstructor: " +getDeclaredConstructorList.size());
-        System.out.println("getDeclaredField: " +getDeclaredFieldList.size());
-        System.out.println("getClassLoader: " +getClassLoaderList.size());
-        System.out.println("findClass: " +findClassList.size());
-        System.out.println("defineClass: " +defineClassList.size());
-        System.out.println("loadClass: " +loadClassList.size());
-        System.out.println("readObject: " +readObjectList.size());
-        System.out.println("allocateInstance: " +allocateInstanceList.size());
-        System.out.println("getInvocationHandler: " +getInvocationHandlerList.size());
-        System.out.println("newProxyInstance: " +newProxyInstanceList.size());
-        System.out.println("ServiceLoader: " +serviceLoaderList.size());
-        System.out.println("total: "+totalFixedCommitSet.size());
-        System.out.println("--------------------------");
-        System.out.println("number of projects: "+projectSet.size());
+        System.out.println(total);
+//        System.out.println("invoke: " +invokeList.size());
+//        System.out.println("getDeclaredMethod: " +getDeclaredMethodList.size());
+//        System.out.println("newInstance: " +newInstanceList.size());
+//        System.out.println("forName: " +forNameList.size());
+//        System.out.println("getDeclaredConstructor: " +getDeclaredConstructorList.size());
+//        System.out.println("getDeclaredField: " +getDeclaredFieldList.size());
+//        System.out.println("getClassLoader: " +getClassLoaderList.size());
+//        System.out.println("findClass: " +findClassList.size());
+//        System.out.println("defineClass: " +defineClassList.size());
+//        System.out.println("loadClass: " +loadClassList.size());
+//        System.out.println("readObject: " +readObjectList.size());
+//        System.out.println("allocateInstance: " +allocateInstanceList.size());
+//        System.out.println("getInvocationHandler: " +getInvocationHandlerList.size());
+//        System.out.println("newProxyInstance: " +newProxyInstanceList.size());
+//        System.out.println("ServiceLoader: " +serviceLoaderList.size());
+//        System.out.println("--------------------------");
+//        System.out.println("number of projects: "+projectSet.size());
 
-        System.out.println("--------------------------");
-        for(String line: totalFixedCommitSet){
-            System.out.println(line);
-        }
+//        System.out.println("--------------------------");
+//        for(String line: totalFixedCommitSet){
+//            System.out.println(line);
+//        }
     }
 }
