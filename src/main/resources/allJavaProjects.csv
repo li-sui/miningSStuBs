@@ -150,7 +150,6 @@ https://github.com/eclipse/capella-deferred-merge,eclipse,capella-deferred-merge
 https://github.com/apache/sling-org-apache-sling-jcr-registration,apache,sling-org-apache-sling-jcr-registration
 https://github.com/GitLqr/LQRWeChat,GitLqr,LQRWeChat
 https://github.com/jd-alexander/LikeButton,jd-alexander,LikeButton
-https://github.com/AndroidBootstrap/android-bootstrap,AndroidBootstrap,android-bootstrap
 https://github.com/apache/uima-as_old,apache,uima-as_old
 https://github.com/TonicArtos/SuperSLiM,TonicArtos,SuperSLiM
 https://github.com/eclipse/lyo.domains,eclipse,lyo.domains
@@ -783,8 +782,6 @@ https://github.com/apache/tomee-release-tools,apache,tomee-release-tools
 https://github.com/apache/sling-org-apache-sling-settings,apache,sling-org-apache-sling-settings
 https://github.com/eclipse/keyple-distributed-local-java-lib,eclipse,keyple-distributed-local-java-lib
 https://github.com/facebook/buck,facebook,buck
-https://github.com/drakeet/Meizhi,drakeet,Meizhi
-https://github.com/psaravan/JamsMusicPlayer,psaravan,JamsMusicPlayer
 https://github.com/MiCode/FileExplorer,MiCode,FileExplorer
 https://github.com/soarcn/BottomSheet,soarcn,BottomSheet
 https://github.com/apache/ws-wss4j,apache,ws-wss4j
@@ -797,7 +794,6 @@ https://github.com/apache/sling-kickstart-maven-plugin,apache,sling-kickstart-ma
 https://github.com/markushi/android-ui,markushi,android-ui
 https://github.com/AsyncHttpClient/async-http-client,AsyncHttpClient,async-http-client
 https://github.com/crossoverJie/JCSprout,crossoverJie,JCSprout
-https://github.com/afollestad/material-camera,afollestad,material-camera
 https://github.com/watabou/pixel-dungeon,watabou,pixel-dungeon
 https://github.com/rengwuxian/MaterialEditText,rengwuxian,MaterialEditText
 https://github.com/apache/druid,apache,druid
@@ -898,7 +894,6 @@ https://github.com/apache/samza-beam-examples,apache,samza-beam-examples
 https://github.com/bm-x/PhotoView,bm-x,PhotoView
 https://github.com/docker-java/docker-java,docker-java,docker-java
 https://github.com/JohnPersano/SuperToasts,JohnPersano,SuperToasts
-https://github.com/Bukkit/CraftBukkit,Bukkit,CraftBukkit
 https://github.com/spring-projects/spring-kafka,spring-projects,spring-kafka
 https://github.com/JetBrains/intellij-deps-ssh-nio-fs,JetBrains,intellij-deps-ssh-nio-fs
 https://github.com/JetBrains/androidx,JetBrains,androidx
@@ -951,7 +946,6 @@ https://github.com/cs125-illinois/Lab6,cs125-illinois,Lab6
 https://github.com/apache/maven-jar-plugin,apache,maven-jar-plugin
 https://github.com/internetarchive/heritrix3,internetarchive,heritrix3
 https://github.com/square/android-times-square,square,android-times-square
-https://github.com/wyouflf/xUtils,wyouflf,xUtils
 https://github.com/apache/fineract-cn-teller,apache,fineract-cn-teller
 https://github.com/apache/sling-org-apache-sling-rewriter,apache,sling-org-apache-sling-rewriter
 https://github.com/yigit/android-priority-jobqueue,yigit,android-priority-jobqueue
@@ -1025,7 +1019,6 @@ https://github.com/google/agera,google,agera
 https://github.com/d1sm/finalspeed,d1sm,finalspeed
 https://github.com/apache/sling-org-apache-sling-launchpad-installer,apache,sling-org-apache-sling-launchpad-installer
 https://github.com/apache/sling-org-apache-sling-dynamic-include,apache,sling-org-apache-sling-dynamic-include
-https://github.com/alibaba/RocketMQ,alibaba,RocketMQ
 https://github.com/hitherejoe/animate,hitherejoe,animate
 https://github.com/uber/NullAway,uber,NullAway
 https://github.com/johncarl81/parceler,johncarl81,parceler
@@ -1197,7 +1190,6 @@ https://github.com/SpecialCyCi/AndroidResideMenu,SpecialCyCi,AndroidResideMenu
 https://github.com/google/codeu_coding_assessment_b_2017,google,codeu_coding_assessment_b_2017
 https://github.com/apache/shardingsphere-benchmark,apache,shardingsphere-benchmark
 https://github.com/Activiti/Activiti,Activiti,Activiti
-https://github.com/b3log/solo,b3log,solo
 https://github.com/apache/sling-org-apache-sling-commons-scheduler,apache,sling-org-apache-sling-commons-scheduler
 https://github.com/apache/maven-osgi,apache,maven-osgi
 https://github.com/Ereza/CustomActivityOnCrash,Ereza,CustomActivityOnCrash
@@ -1209,7 +1201,6 @@ https://github.com/mozilla/smarthome,mozilla,smarthome
 https://github.com/eclipse/jnosql-communication-driver,eclipse,jnosql-communication-driver
 https://github.com/eclipse/rdf4j-testsuite,eclipse,rdf4j-testsuite
 https://github.com/apache/dubbo,apache,dubbo
-https://github.com/b3log/symphony,b3log,symphony
 https://github.com/apache/incubator-retired-slider,apache,incubator-retired-slider
 https://github.com/searchbox-io/Jest,searchbox-io,Jest
 https://github.com/spring-projects/spring-boot,spring-projects,spring-boot
@@ -1234,7 +1225,6 @@ https://github.com/airbnb/lottie-android,airbnb,lottie-android
 https://github.com/DesignativeDave/androrat,DesignativeDave,androrat
 https://github.com/JakeWharton/timber,JakeWharton,timber
 https://github.com/apache/sling-org-apache-sling-jms,apache,sling-org-apache-sling-jms
-https://github.com/izzyleung/ZhihuDailyPurify,izzyleung,ZhihuDailyPurify
 https://github.com/eclipse/rdf4j-tools,eclipse,rdf4j-tools
 https://github.com/apache/sling-org-apache-sling-feature-extension-apiregions,apache,sling-org-apache-sling-feature-extension-apiregions
 https://github.com/apache/sling-org-apache-sling-bnd-models,apache,sling-org-apache-sling-bnd-models
@@ -1636,7 +1626,6 @@ https://github.com/yui/yuicompressor,yui,yuicompressor
 https://github.com/apache/sling-org-apache-sling-extensions-webconsolesecurityprovider,apache,sling-org-apache-sling-extensions-webconsolesecurityprovider
 https://github.com/googlemaps/android-samples,googlemaps,android-samples
 https://github.com/eclipse/jkube,eclipse,jkube
-https://github.com/apache/sling-org-apache-sling-testing-osgi-mock,apache,sling-org-apache-sling-testing-osgi-mock
 https://github.com/apache/sling-org-apache-sling-caconfig-api,apache,sling-org-apache-sling-caconfig-api
 https://github.com/danikula/AndroidVideoCache,danikula,AndroidVideoCache
 https://github.com/google/conscrypt,google,conscrypt
@@ -1809,7 +1798,6 @@ https://github.com/google/samba-documents-provider,google,samba-documents-provid
 https://github.com/JetBrains/vso-httpclient-java,JetBrains,vso-httpclient-java
 https://github.com/eclipse/emf-query,eclipse,emf-query
 https://github.com/eclipse/agileuml,eclipse,agileuml
-https://github.com/drakeet/MaterialDialog,drakeet,MaterialDialog
 https://github.com/apache/incubator-crail,apache,incubator-crail
 https://github.com/google/protobuf-dt,google,protobuf-dt
 https://github.com/eclipse/oneofour,eclipse,oneofour
