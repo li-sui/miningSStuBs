@@ -1,6 +1,6 @@
 [
   {
-    "returnType": "ClassLoader", "keywords" :
+    "returnType": "java.lang.ClassLoader", "keywords" :
     [
       {"callsite": ".getClassLoader()","arguments": ["none"]},
       {"callsite": ".getSystemClassLoader()","arguments": ["none"]},
