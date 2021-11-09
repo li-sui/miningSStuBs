@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class CountNoOfBugs {
     //TODO: make it configurable.
-    static String  jsonFile = "/home/lsui/projects/PilotExperiments/SStuBs/old-sstubs/bugsLarge";
+    static String  jsonFile = "/home/lsui/projects/miningSStuBs/results/bugs.json";
     public static void main(String[] args) throws Exception {
 
         Gson gson = new Gson();

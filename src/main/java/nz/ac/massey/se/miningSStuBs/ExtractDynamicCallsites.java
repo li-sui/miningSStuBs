@@ -4,6 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -21,34 +27,74 @@ public class ExtractDynamicCallsites {
     static final File sstubsFile=  new File("/home/lsui/projects/miningSStuBs/results/bugs.json");
     static final File reflectiveAPIFile= new File("src/main/resources/ReflectiveAPIs.json");
 
+
     public static void main(String[] args) throws Exception{
         Gson gson =new Gson();
         String bugContent = FileUtils.readFileToString(sstubsFile, Charset.defaultCharset());
         String reflectContent= FileUtils.readFileToString(reflectiveAPIFile, Charset.defaultCharset());
         List<BugData> reportList= gson.fromJson(bugContent ,new TypeToken<List<BugData>>(){}.getType());
         List<ReflectiveAPI> reflectiveAPIList=gson.fromJson(reflectContent,new TypeToken<List<ReflectiveAPI>>(){}.getType());
-
         int total=0;
+        Set<String> projects=new HashSet<>();
+        Set<String> commits=new HashSet<>();
+        List<String> listKeywords= new ArrayList<>();
 
-        for(BugData bugReport: reportList){
-            String beforeFix= bugReport.getSourceBeforeFix();
-            String afterFix=bugReport.getSourceAfterFix();
-            String projectUrl="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/");
-            String fixUrl="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
-                    +bugReport.getFixCommitSHA1();
-            String bugSourceCode="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
-                    +bugReport.getFixCommitParentSHA1()+"/"+bugReport.getBugFilePath();
-            outerloop:
-            for(ReflectiveAPI api: reflectiveAPIList){
-                for(Keyword keyword:api.getKeywords()){
-                    if(beforeFix.contains(keyword.getCallsite()) || afterFix.contains(keyword.getCallsite())){
-                        total=total+1;
-                        break outerloop;
-                    }
-                }
+        for(ReflectiveAPI api: reflectiveAPIList){
+            for(Keyword keyword:api.getKeywords()){
+                listKeywords.add(keyword.getCallsite());
             }
         }
-        System.out.println(total);
+        int count=0;
+        for(BugData bugReport: reportList){
+
+            String beforeFix= bugReport.getSourceBeforeFix();
+            String afterFix=bugReport.getSourceAfterFix();
+//            String projectName=bugReport.getProjectName();
+//            String commit=bugReport.getFixCommitSHA1();
+            String parentCommit=bugReport.getFixCommitParentSHA1();
+            String bugFilePath=bugReport.getBugFilePath();
+//            String projectUrl="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/");
+//            String fixUrl="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
+//                    +bugReport.getFixCommitSHA1();
+//            String bugSourceCode="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
+//                    +bugReport.getFixCommitParentSHA1()+"/"+bugReport.getBugFilePath();
+            count++;
+            System.out.println("processing bug "+count+"/249,089");
+
+            innerloop:
+            for (String keyword : listKeywords) {
+                if (beforeFix.contains(keyword) || afterFix.contains(keyword)) {
+//                    total=total+1;
+//                    projects.add(projectName);
+//                    commits.add(commit);
+                    String source = SourceCodeRetriever.retrieveSource(bugReport.getProjectName(), parentCommit, bugFilePath);
+                    if (source != null) {
+                        SourceCodeRetriever.createLocalCopy(bugReport.getProjectName(), parentCommit, source, bugFilePath);
+                    }
+                    break innerloop;
+                }
+            }
+
+
+
+
+//                        total=total+1;
+//                        projects.add(projectName);
+//
+
+        }
+//        System.out.println(total);
+//        System.out.println(commits.size());
+//        System.out.println(projects.size());
+//
+//        int totalBugs=0;
+//        for(BugData bugReport: reportList){
+//
+//            if(projects.contains(bugReport.getProjectName())){
+//                totalBugs++;
+//            }
+//        }
+//        System.out.println(totalBugs);
 //        System.out.println("invoke: " +invokeList.size());
 //        System.out.println("getDeclaredMethod: " +getDeclaredMethodList.size());
 //        System.out.println("newInstance: " +newInstanceList.size());
@@ -72,4 +118,6 @@ public class ExtractDynamicCallsites {
 //            System.out.println(line);
 //        }
     }
+
+
 }
