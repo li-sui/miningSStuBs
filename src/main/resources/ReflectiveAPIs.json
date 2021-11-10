@@ -129,9 +129,21 @@
       {"callsite": ".cast(","arguments": ["java.lang.Object"]},
       {"callsite": ".getDefaultValue()","arguments": ["none"]},
       {"callsite": ".getInvocationHandler(","arguments": ["java.lang.Object"]},
-      {"callsite": ".getAnnotation(","arguments": ["java.lang.Class"]}
+      {"callsite": ".getAnnotation(","arguments": ["java.lang.Class"]},
+
+      {"callsite": ".readObject()","arguments": ["none"]},
+      {"callsite": ".allocateInstance(","arguments": ["java.lang.Class"]}
     ]
   },
+  {
+    "returnType": "java.util.ServiceLoader","keywords":
+  [
+    {"callsite": ".load(","arguments": ["java.lang.Class"]},
+    {"callsite": ".load(","arguments": ["java.lang.Class","java.lang.ClassLoader"]},
+    {"callsite": ".loadInstalled(","arguments": ["java.lang.Class"]}
+  ]
+  },
+
   {
     "returnType": "java.lang.Object[]","keywords":
     [
