@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="log-to-console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="log-to-file" fileName="logs/log.txt">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="clone-repo" level="debug">
+            <AppenderRef ref="log-to-file" level="error"/>
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="log-to-console"/>
+        </Root>
+    </Loggers>
+</Configuration>
