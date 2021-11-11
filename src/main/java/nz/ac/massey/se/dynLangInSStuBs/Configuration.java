@@ -1,4 +1,4 @@
-package nz.ac.massey.se.miningSStuBs;
+package nz.ac.massey.se.dynLangInSStuBs;
 
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.tuple.Pair;

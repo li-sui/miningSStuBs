@@ -1,4 +1,4 @@
-package nz.ac.massey.se.miningSStuBs.logger;
+package nz.ac.massey.se.dynLangInSStuBs.logger;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

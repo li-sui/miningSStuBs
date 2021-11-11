@@ -1,25 +1,24 @@
-package nz.ac.massey.se.miningSStuBs;
+package nz.ac.massey.se.dynLangInSStuBs.tasks;
 
 import com.google.common.base.Preconditions;
-import nz.ac.massey.se.miningSStuBs.logger.MyLogger;
+import nz.ac.massey.se.dynLangInSStuBs.Util;
+import nz.ac.massey.se.dynLangInSStuBs.logger.MyLogger;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.io.FileUtils;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
 import java.nio.charset.Charset;
 
 /**
- * clone repositories from list of projects in a csv file.
+ * clone repositories from list of projects defined in src/main/resources/allJavaProjects.csv
  * need specify output dir: -outputDir /home/{user}/downloads
+ * note that this will run for days and need at least 200G space.
  * @author Li Sui
  */
 public class CloneRepositories {
-    //list of projects from Github.
     private static final File JAVA_PROJECTS_LIST_FILE=new File("src/main/resources/allJavaProjects.csv");
     public static void main(String[] args) throws Exception{
 
@@ -46,7 +45,7 @@ public class CloneRepositories {
                 MyLogger.CLONEREPO.info("cloning: " + projectName);
                 count++;
                 try {
-                    gitClone(url, clonedDir,projectName);
+                    Util.gitClone(url, clonedDir,projectName);
                 }catch (Exception e){
                    MyLogger.CLONEREPO.error("something wrong with cloning:"+projectName);
                    MyLogger.CLONEREPO.error(e.getMessage());
@@ -57,14 +56,5 @@ public class CloneRepositories {
        MyLogger.CLONEREPO.info(count+ " cloned projects");
     }
 
-    public static void gitClone(String url, String outputDir, String name) throws GitAPIException {
-        File repoDir= new File(outputDir+"/"+name);
-        if(!repoDir.exists() && repoDir.isDirectory()){
-            repoDir.mkdirs();
-        }
-        Git.cloneRepository()
-                .setURI(url)
-                .setDirectory(repoDir)
-                .call();
-    }
+
 }

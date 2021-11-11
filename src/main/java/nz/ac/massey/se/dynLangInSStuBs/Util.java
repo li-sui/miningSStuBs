@@ -1,8 +1,10 @@
-package nz.ac.massey.se.miningSStuBs;
+package nz.ac.massey.se.dynLangInSStuBs;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,11 +17,11 @@ import java.util.Map;
  */
 public class Util {
 
-    static Configuration configuration;
-    static  Map<String, String> cookie;
+    public static Configuration configuration;
+    public static  Map<String, String> cookie;
     //these two string arrays contain projects from SStuBs dataset
-    static  String[] topProjects;
-    static String[] topMavenProjects;
+    public static  String[] topProjects;
+    public static String[] topMavenProjects;
 
     static{
         Gson gson =new Gson();
@@ -36,5 +38,16 @@ public class Util {
         cookie=gson.fromJson(cookieInput, new TypeToken<Map<String, String>>() {}.getType());
         configuration=gson.fromJson(configInput, Configuration.class);
         ;
+    }
+
+    public static void gitClone(String url, String outputDir, String name) throws GitAPIException {
+        File repoDir= new File(outputDir+"/"+name);
+        if(!repoDir.exists() && repoDir.isDirectory()){
+            repoDir.mkdirs();
+        }
+        Git.cloneRepository()
+                .setURI(url)
+                .setDirectory(repoDir)
+                .call();
     }
 }

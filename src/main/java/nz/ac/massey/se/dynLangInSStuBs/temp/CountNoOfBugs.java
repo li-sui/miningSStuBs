@@ -1,7 +1,8 @@
-package nz.ac.massey.se.miningSStuBs;
+package nz.ac.massey.se.dynLangInSStuBs.temp;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import nz.ac.massey.se.dynLangInSStuBs.BugData;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

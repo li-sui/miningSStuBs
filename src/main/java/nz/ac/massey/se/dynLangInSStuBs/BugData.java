@@ -1,4 +1,4 @@
-package nz.ac.massey.se.miningSStuBs;
+package nz.ac.massey.se.dynLangInSStuBs;
 
 public class BugData {
     private String fixType;
