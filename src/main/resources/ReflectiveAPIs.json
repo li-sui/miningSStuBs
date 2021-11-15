@@ -4,8 +4,8 @@
     [
       {"callsite": ".getClassLoader()","arguments": ["none"]},
       {"callsite": ".getSystemClassLoader()","arguments": ["none"]},
-      {"callsite": "new ClassLoader","arguments": ["java.lang.ClassLoader"]},
-      {"callsite": "new ClassLoader","arguments": ["none"]},
+      {"callsite": "new ClassLoader(","arguments": ["java.lang.ClassLoader"]},
+      {"callsite": "new ClassLoader(","arguments": ["none"]},
       {"callsite": ".getParent()","arguments": ["none"]}
     ]
   },
@@ -14,14 +14,14 @@
     [
       {"callsite": ".forName(","arguments": ["java.lang.String"]},
       {"callsite": ".forName(","arguments": ["java.lang.String","boolean","java.lang.ClassLoader"]},
-      {"callsite": ".loadClass","arguments": ["java.lang.String"]},
+      {"callsite": ".loadClass(","arguments": ["java.lang.String"]},
       {"callsite": ".class","arguments": ["none"]},
       {"callsite": ".getClass()","arguments": ["none"]},
       {"callsite": ".getComponentType()","arguments": ["none"]},
       {"callsite": ".getDeclaringClass()","arguments": ["none"]},
       {"callsite": ".getEnclosingClass()","arguments": ["none"]},
       {"callsite": ".asSubclass(","arguments": ["java.lang.Class"]},
-      {"callsite": ".getProxyClass","arguments": ["java.lang.ClassLoader","java.lang.Class*"]},
+      {"callsite": ".getProxyClass(","arguments": ["java.lang.ClassLoader","java.lang.Class*"]},
       {"callsite": ".getSuperclass()","arguments": ["none"]},
       {"callsite": ".defineClass(","arguments": ["byte[]","int","int"]},
       {"callsite": ".defineClass(","arguments": ["java.lang.String","byte[]","int","int"]},
