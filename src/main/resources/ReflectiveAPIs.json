@@ -159,8 +159,6 @@
       {"callsite": ".isInstance(","arguments": ["java.lang.Object"]},
       {"callsite": ".isProxyClass(","arguments": ["java.lang.Class"]},
       {"callsite": ".equals(","arguments": ["java.lang.Object"]},
-      {"callsite": "==","arguments": ["none"]},
-      {"callsite": "!=","arguments": ["none"]},
       {"callsite": ".isAccessible(","arguments": ["java.lang.Class"]},
       {"callsite": ".desiredAssertionStatus()","arguments": ["none"]},
       {"callsite": ".isAnnotationPresent(","arguments": ["java.lang.Class"]},
