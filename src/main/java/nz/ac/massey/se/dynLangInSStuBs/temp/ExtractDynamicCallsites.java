@@ -41,13 +41,13 @@ public class ExtractDynamicCallsites {
                 listKeywords.add(keyword.getCallsite());
             }
         }
-        int count=0;
+
         for(BugData bugReport: reportList){
 
             String beforeFix= bugReport.getSourceBeforeFix();
             String afterFix=bugReport.getSourceAfterFix();
-//            String projectName=bugReport.getProjectName();
-//            String commit=bugReport.getFixCommitSHA1();
+            String projectName=bugReport.getProjectName();
+            String commit=bugReport.getFixCommitSHA1();
             String parentCommit=bugReport.getFixCommitParentSHA1();
             String bugFilePath=bugReport.getBugFilePath();
 //            String projectUrl="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/");
@@ -55,19 +55,20 @@ public class ExtractDynamicCallsites {
 //                    +bugReport.getFixCommitSHA1();
 //            String bugSourceCode="https://github.com/"+bugReport.getProjectName().replaceFirst("\\.","/")+"/commit/"
 //                    +bugReport.getFixCommitParentSHA1()+"/"+bugReport.getBugFilePath();
-            count++;
-            System.out.println("processing bug "+count+"/249,089");
+
+            //System.out.println("processing bug "+count+"/249,089");
 
             innerloop:
             for (String keyword : listKeywords) {
                 if (beforeFix.contains(keyword) || afterFix.contains(keyword)) {
+                    total++;
 //                    total=total+1;
-//                    projects.add(projectName);
-//                    commits.add(commit);
-                    String source = SourceCodeRetriever.retrieveSource(bugReport.getProjectName(), parentCommit, bugFilePath);
-                    if (source != null) {
-                        SourceCodeRetriever.createLocalCopy(bugReport.getProjectName(), parentCommit, source, bugFilePath);
-                    }
+                    projects.add(projectName);
+                    commits.add(parentCommit);
+                    //String source = SourceCodeRetriever.retrieveSource(bugReport.getProjectName(), parentCommit, bugFilePath);
+//                    if (source != null) {
+//                        SourceCodeRetriever.createLocalCopy(bugReport.getProjectName(), parentCommit, source, bugFilePath);
+//                    }
                     break innerloop;
                 }
             }
@@ -80,9 +81,9 @@ public class ExtractDynamicCallsites {
 //
 
         }
-//        System.out.println(total);
-//        System.out.println(commits.size());
-//        System.out.println(projects.size());
+        System.out.println(total);
+        System.out.println(commits.size());
+        System.out.println(projects.size());
 //
 //        int totalBugs=0;
 //        for(BugData bugReport: reportList){
