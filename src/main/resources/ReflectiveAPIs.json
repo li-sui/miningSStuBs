@@ -2,212 +2,212 @@
   {
     "returnType": "java.lang.ClassLoader", "keywords" :
     [
-      {"callsite": ".getClassLoader()","arguments": ["none"]},
-      {"callsite": ".getSystemClassLoader()","arguments": ["none"]},
-      {"callsite": "new ClassLoader(","arguments": ["java.lang.ClassLoader"]},
-      {"callsite": "new ClassLoader(","arguments": ["none"]},
-      {"callsite": ".getParent()","arguments": ["none"]}
+      {"callsite": "getClassLoader","arguments": []},
+      {"callsite": "getSystemClassLoader","arguments": []},
+      {"callsite": "new ClassLoader","arguments": ["java.lang.ClassLoader"]},
+      {"callsite": "new ClassLoader","arguments": []},
+      {"callsite": "getParent","arguments": []}
     ]
   },
   {
     "returnType": "java.lang.Class","keywords":
     [
-      {"callsite": ".forName(","arguments": ["java.lang.String"]},
-      {"callsite": ".forName(","arguments": ["java.lang.String","boolean","java.lang.ClassLoader"]},
-      {"callsite": ".loadClass(","arguments": ["java.lang.String"]},
-      {"callsite": ".class","arguments": ["none"]},
-      {"callsite": ".getClass()","arguments": ["none"]},
-      {"callsite": ".getComponentType()","arguments": ["none"]},
-      {"callsite": ".getDeclaringClass()","arguments": ["none"]},
-      {"callsite": ".getEnclosingClass()","arguments": ["none"]},
-      {"callsite": ".asSubclass(","arguments": ["java.lang.Class"]},
-      {"callsite": ".getProxyClass(","arguments": ["java.lang.ClassLoader","java.lang.Class*"]},
-      {"callsite": ".getSuperclass()","arguments": ["none"]},
-      {"callsite": ".defineClass(","arguments": ["byte[]","int","int"]},
-      {"callsite": ".defineClass(","arguments": ["java.lang.String","byte[]","int","int"]},
-      {"callsite": ".defineClass(","arguments": ["java.lang.String","byte[]","int","int","java.security.ProtectionDomain"]},
-      {"callsite": ".defineClass(","arguments": ["java.lang.String","java.nio.ByteBuffer","java.security.ProtectionDomain"]},
-      {"callsite": ".findClass(","arguments": ["java.lang.String"]},
-      {"callsite": ".findLoadedClass(","arguments": ["java.lang.String"]},
-      {"callsite": ".findSystemClass(","arguments": ["java.lang.String"]},
-      {"callsite": ".loadClass(","arguments": ["java.lang.String"]},
-      {"callsite": ".loadClass(","arguments": ["java.lang.String","boolean"]},
-      {"callsite": ".getReturnType()","arguments": ["none"]}
+      {"callsite": "forName","arguments": ["java.lang.String"]},
+      {"callsite": "forName","arguments": ["java.lang.String","boolean","java.lang.ClassLoader"]},
+      {"callsite": "loadClass","arguments": ["java.lang.String"]},
+      {"callsite": "class","arguments": []},
+      {"callsite": "getClass","arguments": []},
+      {"callsite": "getComponentType","arguments": []},
+      {"callsite": "getDeclaringClass","arguments": []},
+      {"callsite": "getEnclosingClass","arguments": []},
+      {"callsite": "asSubclass","arguments": ["java.lang.Class"]},
+      {"callsite": "getProxyClass","arguments": ["java.lang.ClassLoader","java.lang.Class"]},
+      {"callsite": "getSuperclass","arguments": []},
+      {"callsite": "defineClass","arguments": ["byte[]","int","int"]},
+      {"callsite": "defineClass","arguments": ["java.lang.String","byte[]","int","int"]},
+      {"callsite": "defineClass","arguments": ["java.lang.String","byte[]","int","int","java.security.ProtectionDomain"]},
+      {"callsite": "defineClass","arguments": ["java.lang.String","java.nio.ByteBuffer","java.security.ProtectionDomain"]},
+      {"callsite": "findClass","arguments": ["java.lang.String"]},
+      {"callsite": "findLoadedClass","arguments": ["java.lang.String"]},
+      {"callsite": "findSystemClass","arguments": ["java.lang.String"]},
+      {"callsite": "loadClass","arguments": ["java.lang.String"]},
+      {"callsite": "loadClass","arguments": ["java.lang.String","boolean"]},
+      {"callsite": "getReturnType","arguments": []}
     ]
   },
   {
     "returnType": "java.lang.Class[]","keywords":
     [
-      {"callsite": ".getClasses()","arguments": ["none"]},
-      {"callsite": ".getDeclaredClasses()","arguments": ["none"]},
-      {"callsite": ".getInterfaces()","arguments": ["none"]},
-      {"callsite": ".getExceptionTypes()","arguments": ["none"]},
-      {"callsite": ".getParameterTypes()","arguments": ["none"]}
+      {"callsite": "getClasses","arguments": []},
+      {"callsite": "getDeclaredClasses","arguments": []},
+      {"callsite": "getInterfaces","arguments": []},
+      {"callsite": "getExceptionTypes","arguments": []},
+      {"callsite": "getParameterTypes","arguments": []}
     ]
   },
   {
     "returnType": "java.lang.reflect.Method","keywords":
     [
-      {"callsite": ".getDeclaredMethod(","arguments": ["java.lang.String","java.lang.Class*"]},
-      {"callsite": ".getMethod(","arguments": ["java.lang.String","java.lang.Class*"]},
-      {"callsite": ".getEnclosingMethod()","arguments": ["none"]}
+      {"callsite": "getDeclaredMethod","arguments": ["java.lang.String","java.lang.Class"]},
+      {"callsite": "getMethod","arguments": ["java.lang.String","java.lang.Class"]},
+      {"callsite": "getEnclosingMethod","arguments": []}
     ]
   },
   {
     "returnType": "java.lang.reflect.Method[]","keywords":
   [
-    {"callsite": ".getDeclaredMethods()","arguments": ["none"]},
-    {"callsite": ".getMethods()","arguments": ["none"]}
+    {"callsite": "getDeclaredMethods","arguments": []},
+    {"callsite": "getMethods","arguments": []}
   ]
   },
   {
     "returnType": "java.lang.reflect.Field","keywords":
   [
-    {"callsite": ".getDeclaredField(","arguments": ["java.lang.String"]},
-    {"callsite": ".getField(","arguments": ["java.lang.String"]}
+    {"callsite": "getDeclaredField","arguments": ["java.lang.String"]},
+    {"callsite": "getField","arguments": ["java.lang.String"]}
   ]
   },
   {
     "returnType": "java.lang.reflect.Field[]","keywords":
   [
-    {"callsite": ".getDeclaredFields()","arguments": ["none"]},
-    {"callsite": ".getFields()","arguments": ["none"]}
+    {"callsite": "getDeclaredFields","arguments": []},
+    {"callsite": "getFields","arguments": []}
   ]
   },
   {
     "returnType": "java.lang.reflect.Constructor","keywords":
   [
-    {"callsite": ".getDeclaredConstructor(","arguments": ["java.lang.String","java.lang.Class*"]},
-    {"callsite": ".getConstructor(","arguments": ["java.lang.String","java.lang.Class*"]},
-    {"callsite": ".getEnclosingConstructor()","arguments": ["none"]}
+    {"callsite": "getDeclaredConstructor","arguments": ["java.lang.String","java.lang.Class"]},
+    {"callsite": "getConstructor","arguments": ["java.lang.String","java.lang.Class"]},
+    {"callsite": "getEnclosingConstructor","arguments": []}
   ]
   },
   {
     "returnType": "java.lang.reflect.Constructor[]","keywords":
   [
-    {"callsite": ".getDeclaredConstructors()","arguments": ["none"]},
-    {"callsite": ".getConstructors()","arguments": ["none"]}
+    {"callsite": "getDeclaredConstructors","arguments": []},
+    {"callsite": "getConstructors","arguments": []}
   ]
   },
   {
     "returnType": "void","keywords":
     [
-      {"callsite": ".set(","arguments": ["java.lang.Object","java.lang.Object"]},
-      {"callsite": ".setBoolean(","arguments": ["java.lang.Object","boolean"]},
-      {"callsite": ".setByte(","arguments": ["java.lang.Object","byte"]},
-      {"callsite": ".setChar(","arguments": ["java.lang.Object","char"]},
-      {"callsite": ".setDouble(","arguments": ["java.lang.Object","double"]},
-      {"callsite": ".setFloat(","arguments": ["java.lang.Object","float"]},
-      {"callsite": ".setInt(","arguments": ["java.lang.Object","int"]},
-      {"callsite": ".setLong(","arguments": ["java.lang.Object","long"]},
-      {"callsite": ".setShort(","arguments": ["java.lang.Object","short"]},
-      {"callsite": ".set(","arguments": ["java.lang.Object","int","java.lang.Object"]},
-      {"callsite": ".setBoolean(","arguments": ["java.lang.Object","int","boolean"]},
-      {"callsite": ".setByte(","arguments": ["java.lang.Object","int","byte"]},
-      {"callsite": ".setChar(","arguments": ["java.lang.Object","int","char"]},
-      {"callsite": ".setDouble(","arguments": ["java.lang.Object","int","double"]},
-      {"callsite": ".setFloat(","arguments": ["java.lang.Object","int","float"]},
-      {"callsite": ".setInt(","arguments": ["java.lang.Object","int","int"]},
-      {"callsite": ".setLong(","arguments": ["java.lang.Object","int","long"]},
-      {"callsite": ".setShort(","arguments": ["java.lang.Object","int","short"]},
-      {"callsite": ".setClassAssertionStatus(","arguments": ["java.lang.String","boolean"]},
-      {"callsite": ".setDefaultAssertionStatus(","arguments": ["boolean"]},
-      {"callsite": ".setPackageAssertionStatus(","arguments": ["java.lang.String","boolean"]},
-      {"callsite": ".setAccessible(","arguments": ["boolean"]}
+      {"callsite": "set","arguments": ["java.lang.Object","java.lang.Object"]},
+      {"callsite": "setBoolean","arguments": ["java.lang.Object","boolean"]},
+      {"callsite": "setByte","arguments": ["java.lang.Object","byte"]},
+      {"callsite": "setChar","arguments": ["java.lang.Object","char"]},
+      {"callsite": "setDouble","arguments": ["java.lang.Object","double"]},
+      {"callsite": "setFloat","arguments": ["java.lang.Object","float"]},
+      {"callsite": "setInt","arguments": ["java.lang.Object","int"]},
+      {"callsite": "setLong","arguments": ["java.lang.Object","long"]},
+      {"callsite": "setShort","arguments": ["java.lang.Object","short"]},
+      {"callsite": "set","arguments": ["java.lang.Object","int","java.lang.Object"]},
+      {"callsite": "setBoolean","arguments": ["java.lang.Object","int","boolean"]},
+      {"callsite": "setByte","arguments": ["java.lang.Object","int","byte"]},
+      {"callsite": "setChar","arguments": ["java.lang.Object","int","char"]},
+      {"callsite": "setDouble","arguments": ["java.lang.Object","int","double"]},
+      {"callsite": "setFloat","arguments": ["java.lang.Object","int","float"]},
+      {"callsite": "setInt","arguments": ["java.lang.Object","int","int"]},
+      {"callsite": "setLong","arguments": ["java.lang.Object","int","long"]},
+      {"callsite": "setShort","arguments": ["java.lang.Object","int","short"]},
+      {"callsite": "setClassAssertionStatus","arguments": ["java.lang.String","boolean"]},
+      {"callsite": "setDefaultAssertionStatus","arguments": ["boolean"]},
+      {"callsite": "setPackageAssertionStatus","arguments": ["java.lang.String","boolean"]},
+      {"callsite": "setAccessible","arguments": ["boolean"]}
     ]
   },
   {
     "returnType": "java.lang.Object","keywords":
     [
-      {"callsite": ".newInstance(","arguments": ["java.lang.Object*"]},
-      {"callsite": ".newInstance()","arguments": ["none"]},
-      {"callsite": ".newInstance(","arguments": ["java.lang.Class","int*"]},
-      {"callsite": ".newProxyInstance(","arguments": ["java.lang.ClassLoader","java.lang.Class[]","java.lang.Object"]},
-      {"callsite": ".invoke(","arguments": ["java.lang.Object","java.lang.Object*"]},
-      {"callsite": ".get(","arguments": ["java.lang.Object"]},
-      {"callsite": ".get(","arguments": ["java.lang.Object","int"]},
-      {"callsite": ".cast(","arguments": ["java.lang.Object"]},
-      {"callsite": ".getDefaultValue()","arguments": ["none"]},
-      {"callsite": ".getInvocationHandler(","arguments": ["java.lang.Object"]},
-      {"callsite": ".getAnnotation(","arguments": ["java.lang.Class"]},
+      {"callsite": "newInstance","arguments": ["java.lang.Object"]},
+      {"callsite": "newInstance","arguments": []},
+      {"callsite": "newInstance","arguments": ["java.lang.Class","int"]},
+      {"callsite": "newProxyInstance","arguments": ["java.lang.ClassLoader","java.lang.Class[]","java.lang.Object"]},
+      {"callsite": "invoke","arguments": ["java.lang.Object","java.lang.Object"]},
+      {"callsite": "get","arguments": ["java.lang.Object"]},
+      {"callsite": "get","arguments": ["java.lang.Object","int"]},
+      {"callsite": "cast","arguments": ["java.lang.Object"]},
+      {"callsite": "getDefaultValue","arguments": []},
+      {"callsite": "getInvocationHandler","arguments": ["java.lang.Object"]},
+      {"callsite": "getAnnotation","arguments": ["java.lang.Class"]},
 
-      {"callsite": ".readObject()","arguments": ["none"]},
-      {"callsite": ".allocateInstance(","arguments": ["java.lang.Class"]}
+      {"callsite": "readObject","arguments": []},
+      {"callsite": "allocateInstance","arguments": ["java.lang.Class"]}
     ]
   },
   {
     "returnType": "java.util.ServiceLoader","keywords":
   [
-    {"callsite": ".load(","arguments": ["java.lang.Class"]},
-    {"callsite": ".load(","arguments": ["java.lang.Class","java.lang.ClassLoader"]},
-    {"callsite": ".loadInstalled(","arguments": ["java.lang.Class"]}
+    {"callsite": "load","arguments": ["java.lang.Class"]},
+    {"callsite": "load","arguments": ["java.lang.Class","java.lang.ClassLoader"]},
+    {"callsite": "loadInstalled","arguments": ["java.lang.Class"]}
   ]
   },
 
   {
     "returnType": "java.lang.Object[]","keywords":
     [
-      {"callsite": ".getSigners()","arguments": ["none"]},
-      {"callsite": ".getEnumConstants()","arguments": ["none"]},
-      {"callsite": ".getDeclaredAnnotations()","arguments": ["none"]}
+      {"callsite": "getSigners","arguments": []},
+      {"callsite": "getEnumConstants","arguments": []},
+      {"callsite": "getDeclaredAnnotations","arguments": []}
     ]
   },
   {
     "returnType": "boolean","keywords":
     [
-      {"callsite": ".isAssignableFrom(","arguments": ["java.lang.Class"]},
-      {"callsite": ".isInstance(","arguments": ["java.lang.Object"]},
-      {"callsite": ".isProxyClass(","arguments": ["java.lang.Class"]},
-      {"callsite": ".equals(","arguments": ["java.lang.Object"]},
-      {"callsite": ".isAccessible(","arguments": ["java.lang.Class"]},
-      {"callsite": ".desiredAssertionStatus()","arguments": ["none"]},
-      {"callsite": ".isAnnotationPresent(","arguments": ["java.lang.Class"]},
-      {"callsite": ".isAnnotation()","arguments": ["none"]},
-      {"callsite": ".isAnonymousClass()","arguments": ["none"]},
-      {"callsite": ".isArray()","arguments": ["none"]},
-      {"callsite": ".isInterface()","arguments": ["none"]},
-      {"callsite": ".isLocalClass()","arguments": ["none"]},
-      {"callsite": ".isMemberClass()","arguments": ["none"]},
-      {"callsite": ".isPrimitive()","arguments": ["none"]},
-      {"callsite": ".isSynthetic()","arguments": ["none"]},
-      {"callsite": ".isBridge()","arguments": ["none"]},
-      {"callsite": ".isBridge()","arguments": ["none"]},
-      {"callsite": ".isVarArgs()","arguments": ["none"]}
+      {"callsite": "isAssignableFrom","arguments": ["java.lang.Class"]},
+      {"callsite": "isInstance","arguments": ["java.lang.Object"]},
+      {"callsite": "isProxyClass","arguments": ["java.lang.Class"]},
+      {"callsite": "equals","arguments": ["java.lang.Object"]},
+      {"callsite": "isAccessible","arguments": ["java.lang.Class"]},
+      {"callsite": "desiredAssertionStatus","arguments": []},
+      {"callsite": "isAnnotationPresent","arguments": ["java.lang.Class"]},
+      {"callsite": "isAnnotation","arguments": []},
+      {"callsite": "isAnonymousClass","arguments": []},
+      {"callsite": "isArray","arguments": []},
+      {"callsite": "isInterface","arguments": []},
+      {"callsite": "isLocalClass","arguments": []},
+      {"callsite": "isMemberClass","arguments": []},
+      {"callsite": "isPrimitive","arguments": []},
+      {"callsite": "isSynthetic","arguments": []},
+      {"callsite": "isBridge","arguments": []},
+      {"callsite": "isBridge","arguments": []},
+      {"callsite": "isVarArgs","arguments": []}
     ]
   },
   {
     "returnType": "int","keywords":
   [
-    {"callsite": ".getModifiers()","arguments": ["none"]}
+    {"callsite": "getModifiers","arguments": []}
   ]
   },
   {
     "returnType": "java.lang.String","keywords":
     [
-      {"callsite": ".getPackage()","arguments": ["none"]},
-      {"callsite": ".toGenericString()","arguments": ["none"]},
-      {"callsite": ".toString()","arguments": ["none"]},
-      {"callsite": ".getName()","arguments": ["none"]},
-      {"callsite": ".getTypeName()","arguments": ["none"]},
-      {"callsite": ".getSimpleName()","arguments": ["none"]}
+      {"callsite": "getPackage","arguments": []},
+      {"callsite": "toGenericString","arguments": []},
+      {"callsite": "toString","arguments": []},
+      {"callsite": "getName","arguments": []},
+      {"callsite": "getTypeName","arguments": []},
+      {"callsite": "getSimpleName","arguments": []}
     ]
   },
   {
     "returnType": "java.security.ProtectionDomain","keywords":
     [
-      {"callsite": ".getProtectionDomain()","arguments": ["none"]}
+      {"callsite": "getProtectionDomain","arguments": []}
     ]
   },
   {
     "returnType": "java.net.URL","keywords":
     [
-      {"callsite": ".getResource(","arguments": ["java.lang.String"]}
+      {"callsite": "getResource","arguments": ["java.lang.String"]}
     ]
   },
   {
     "returnType": "java.io.InputStream","keywords":
     [
-      {"callsite": ".getResourceAsStream(","arguments": ["java.lang.String"]}
+      {"callsite": "getResourceAsStream","arguments": ["java.lang.String"]}
     ]
   }
 ]
