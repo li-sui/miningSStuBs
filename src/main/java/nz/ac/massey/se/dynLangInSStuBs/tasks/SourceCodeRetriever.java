@@ -24,6 +24,8 @@ import java.util.Set;
 /**
  * checkout each cloned repository, and retrieve bug related source code.
  * Note that this will run for days
+ *
+ * obtain bugs happen before the fix commit
  * @author Li Sui
  */
 public class SourceCodeRetriever {
@@ -58,12 +60,9 @@ public class SourceCodeRetriever {
             MyLogger.RETRIEVESC.info("processing "+count+ " bug instance");
             innerloop:
             for (String keyword : keywordSet) {
-                if (beforeFix.contains(keyword) || afterFix.contains(keyword)) {
+                if (beforeFix.contains(keyword)) {
                     MyLogger.RETRIEVESC.info("found a dynamic language ("+keyword+") related bugs at "+bugFilePath);
-                    String source = retrieveSource(bugReport.getProjectName(), parentCommit, bugFilePath);
-                    if (source != null) {
-                        SourceCodeRetriever.createLocalCopy(bugReport.getProjectName(), parentCommit, source, bugFilePath);
-                    }
+                     retrieveSource(bugReport.getProjectName(), parentCommit, bugFilePath);
                     break innerloop;
                 }
             }
@@ -71,8 +70,9 @@ public class SourceCodeRetriever {
 
     }
 
-    public static String retrieveSource(String projectName, String commit,String bugFilePath) throws Exception{
-        String sourceCode="";
+    public static void retrieveSource(String projectName, String commit,String bugFilePath) throws Exception{
+        String sourceCode=null;
+        String fileName=null;
         FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
         repositoryBuilder.setMustExist( true );
         repositoryBuilder.setGitDir(new File(projectsDir+"/"+projectName+"/.git"));
@@ -88,27 +88,26 @@ public class SourceCodeRetriever {
 
         RevCommit latestCommit = new Git(repository).log().setMaxCount(1).call().iterator().next();
         if(latestCommit.getName().equals(commit)) {
-            sourceCode = FileUtils.readFileToString(new File(projectsDir+"/"+projectName+"/" + bugFilePath), Charset.defaultCharset());
+            File file =new File(projectsDir+"/"+projectName+"/" + bugFilePath);
+            fileName=file.getName();
+            sourceCode = FileUtils.readFileToString(file, Charset.defaultCharset());
         }else {
             MyLogger.RETRIEVESC.error("the current commit does not match:"+commit +" for"+bugFilePath);
         }
-        return sourceCode;
-    }
 
-    public static void createLocalCopy(String projectName, String commit,String soureCode, String bugFilePath) throws Exception{
-        File dir= new File(outputDir+"/"+projectName);
-        if(!dir.exists()){
-            dir.mkdirs();
+        if(sourceCode!=null){
+            File dir= new File(outputDir+"/"+projectName);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            String name=commit+"."+fileName;
+            File file=new File(outputDir+"/"+projectName+"/"+name);
+            try {
+                FileUtils.writeStringToFile(file, sourceCode, Charset.defaultCharset());
+            }catch (FileNotFoundException e){
+                MyLogger.RETRIEVESC.error("error in create a local copy:"+e.getMessage());
+            }
         }
-        String fileName=bugFilePath.replace("/",".");
-        String name=commit+"."+fileName;
-        File file=new File(outputDir+"/"+projectName+"/"+name);
-        try {
-            FileUtils.writeStringToFile(file, soureCode, Charset.defaultCharset());
-        }catch (FileNotFoundException e){
-            MyLogger.RETRIEVESC.error(e.getMessage());
-            file =new File(outputDir+"/"+projectName+"/"+commit+".fileNameTooLong.java");
-            FileUtils.writeStringToFile(file, soureCode, Charset.defaultCharset());
-        }
+
     }
 }
