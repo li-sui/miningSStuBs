@@ -15,7 +15,6 @@
       {"callsite": "forName","arguments": ["java.lang.String"]},
       {"callsite": "forName","arguments": ["java.lang.String","boolean","java.lang.ClassLoader"]},
       {"callsite": "loadClass","arguments": ["java.lang.String"]},
-      {"callsite": "class","arguments": []},
       {"callsite": "getClass","arguments": []},
       {"callsite": "getComponentType","arguments": []},
       {"callsite": "getDeclaringClass","arguments": []},

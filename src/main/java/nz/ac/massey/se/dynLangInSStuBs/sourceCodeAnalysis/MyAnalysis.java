@@ -38,6 +38,7 @@ public class MyAnalysis {
         Multimap<String, List<String>> callsites= Util.getAllCallsites();
 
         for(MethodCallExpr mce : cu.findAll(MethodCallExpr.class)){
+
             int lineNumber= mce.getName().getBegin().get().line;
             String callsiteName= mce.getName().asString();
             if(expectedLineNumber==lineNumber && callsites.containsKey(callsiteName)){
@@ -45,15 +46,40 @@ public class MyAnalysis {
                 NodeList<Expression> argumentList= mce.getArguments();
                 Collection<List<String>> expectedArguments=callsites.get(callsiteName);
                 if(argumentList.size()==0 && checkZEROArgument(expectedArguments)){
-                    MyLogger.SCANALYSIS.info("the callsite has no arguments and it matches the expected arguments");
+                    MyLogger.SCANALYSIS.info("found the callsite:"+callsiteName+" at expected line:" +lineNumber +". (no argument)");
                     return true;
                 }
                 List<String> convertedArgs= new ArrayList<>();
                 for(Expression expression: argumentList){
-                    convertedArgs.add(expression.calculateResolvedType().describe());
+                    String type=expression.calculateResolvedType().describe();
+                   // System.out.println(type);
+                    if(type.equals("java.lang.ClassLoader")){
+                        convertedArgs.add("java.lang.ClassLoader");
+                        continue;
+                    }
+                    if(type.equals("java.lang.String")){
+                        convertedArgs.add(type);
+                        continue;
+                    }
+                    if(type.equals("java.security.ProtectionDomain")){
+                        convertedArgs.add("java.security.ProtectionDomain");
+                        continue;
+                    }
+                    if(type.startsWith("java.lang.Class")){
+                        convertedArgs.add("java.lang.Class");
+                        continue;
+                    }
+                    if(expression.calculateResolvedType().isReferenceType() ){
+                        convertedArgs.add("java.lang.Object");
+                        continue;
+                    }
+                    if(expression.calculateResolvedType().isPrimitive() || expression.calculateResolvedType().isArray()){
+                        convertedArgs.add(type);
+                    }
                 }
+               // System.out.println(convertedArgs);
                 if(checkArgument(expectedArguments,convertedArgs)){
-                    MyLogger.SCANALYSIS.info("found the callsite:"+callsiteName+" at expected line:" +lineNumber);
+                    MyLogger.SCANALYSIS.info("found the callsite:"+callsiteName+" at expected line:" +lineNumber+" with arguments:"+convertedArgs);
                     return true;
                 }
             }
@@ -73,6 +99,7 @@ public class MyAnalysis {
     }
 
     public static boolean checkArgument(Collection<List<String>> expectedArguments, List<String> arguments){
+
         for(List<String> list: expectedArguments){
             //equal or contain?
            if(CollectionUtils.containsAny(arguments,list)){
