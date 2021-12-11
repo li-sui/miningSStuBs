@@ -91,7 +91,7 @@
   {
     "returnType": "void","keywords":
     [
-      {"callsite": "set","arguments": ["java.lang.Object","java.lang.Object"]},
+
       {"callsite": "setBoolean","arguments": ["java.lang.Object","boolean"]},
       {"callsite": "setByte","arguments": ["java.lang.Object","byte"]},
       {"callsite": "setChar","arguments": ["java.lang.Object","char"]},
@@ -100,7 +100,7 @@
       {"callsite": "setInt","arguments": ["java.lang.Object","int"]},
       {"callsite": "setLong","arguments": ["java.lang.Object","long"]},
       {"callsite": "setShort","arguments": ["java.lang.Object","short"]},
-      {"callsite": "set","arguments": ["java.lang.Object","int","java.lang.Object"]},
+
       {"callsite": "setBoolean","arguments": ["java.lang.Object","int","boolean"]},
       {"callsite": "setByte","arguments": ["java.lang.Object","int","byte"]},
       {"callsite": "setChar","arguments": ["java.lang.Object","int","char"]},
@@ -123,8 +123,6 @@
       {"callsite": "newInstance","arguments": ["java.lang.Class","int"]},
       {"callsite": "newProxyInstance","arguments": ["java.lang.ClassLoader","java.lang.Class[]","java.lang.Object"]},
       {"callsite": "invoke","arguments": ["java.lang.Object","java.lang.Object"]},
-      {"callsite": "get","arguments": ["java.lang.Object"]},
-      {"callsite": "get","arguments": ["java.lang.Object","int"]},
       {"callsite": "cast","arguments": ["java.lang.Object"]},
       {"callsite": "getDefaultValue","arguments": []},
       {"callsite": "getInvocationHandler","arguments": ["java.lang.Object"]},
@@ -157,7 +155,7 @@
       {"callsite": "isAssignableFrom","arguments": ["java.lang.Class"]},
       {"callsite": "isInstance","arguments": ["java.lang.Object"]},
       {"callsite": "isProxyClass","arguments": ["java.lang.Class"]},
-      {"callsite": "equals","arguments": ["java.lang.Object"]},
+
       {"callsite": "isAccessible","arguments": ["java.lang.Class"]},
       {"callsite": "desiredAssertionStatus","arguments": []},
       {"callsite": "isAnnotationPresent","arguments": ["java.lang.Class"]},
@@ -185,8 +183,6 @@
     [
       {"callsite": "getPackage","arguments": []},
       {"callsite": "toGenericString","arguments": []},
-      {"callsite": "toString","arguments": []},
-      {"callsite": "getName","arguments": []},
       {"callsite": "getTypeName","arguments": []},
       {"callsite": "getSimpleName","arguments": []}
     ]
