@@ -27,6 +27,7 @@ public class CheckFP {
         List<File> files = (List<File>) FileUtils.listFiles(new File(inputDir), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         int total=0;
         int count=0;
+        StringBuilder sb =new StringBuilder();
         for(File file: files){
             String inputClass =FileUtils.readFileToString(file,Charset.defaultCharset());
             total++;
@@ -38,7 +39,8 @@ public class CheckFP {
                     if (key.contains(commit) && key.contains(fileName)) {
                         if (MyAnalysis.verify(inputClass, lineNumber)) {
                             map.put(file.getName(),lineNumber);
-                            System.out.println(file.getName()+","+lineNumber+",");
+                            String fixURI="https://github.com/"+bugData.getProjectName().replace(".","/")+"/commit/"+bugData.getFixCommitSHA1();
+                            sb.append(file.getName()+","+lineNumber+","+fixURI+"\n");
                             count++;
                             break;
                         }
@@ -49,6 +51,7 @@ public class CheckFP {
 
         System.out.println("total: "+total);
         System.out.println("TP: "+count);
+        FileUtils.writeStringToFile(new File("sample/sample-12-Dec.csv"),sb.toString(),Charset.defaultCharset());
 /// sample 300
 //        Map<String, Integer> sampled=sample(map,300);
 //
