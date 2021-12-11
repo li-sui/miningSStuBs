@@ -7,7 +7,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * count number of single line bugs in results/bugs.json
@@ -15,7 +17,7 @@ import java.util.List;
  */
 public class CountNoOfBugs {
     //TODO: make it configurable.
-    static String  jsonFile = "/home/lsui/projects/miningSStuBs/results/bugs.json";
+    static String  jsonFile = "/home/lsui/projects/miningSStuBs/results/sstubs.json";
     public static void main(String[] args) throws Exception {
 
         Gson gson = new Gson();

@@ -1,11 +1,13 @@
 package nz.ac.massey.se.dynLangInSStuBs.sourceCodeAnalysis;
 
+import com.github.javaparser.ParseProblemException;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.expr.*;
+import com.github.javaparser.resolution.UnsolvedSymbolException;
 import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
@@ -34,7 +36,13 @@ public class MyAnalysis {
         combinedTypeSolver.add(new ReflectionTypeSolver());
         JavaSymbolSolver symbolSolver = new JavaSymbolSolver(combinedTypeSolver);
         StaticJavaParser.getConfiguration().setSymbolResolver(symbolSolver);
-        CompilationUnit cu = StaticJavaParser.parse(inputClass);
+        CompilationUnit cu=null;
+        try {
+            cu = StaticJavaParser.parse(inputClass);
+        }catch (ParseProblemException e){
+            MyLogger.SCANALYSIS.error("error for parsing source code");
+            return false;
+        }
         Multimap<String, List<String>> callsites= Util.getAllCallsites();
 
         for(MethodCallExpr mce : cu.findAll(MethodCallExpr.class)){
@@ -46,45 +54,50 @@ public class MyAnalysis {
                 NodeList<Expression> argumentList= mce.getArguments();
                 Collection<List<String>> expectedArguments=callsites.get(callsiteName);
                 if(argumentList.size()==0 && checkZEROArgument(expectedArguments)){
-                    MyLogger.SCANALYSIS.info("found the callsite:"+callsiteName+" at expected line:" +lineNumber +". (no argument)");
+                   // MyLogger.SCANALYSIS.info("found the callsite:"+callsiteName+" at expected line:" +lineNumber +". (no argument)");
                     return true;
                 }
                 List<String> convertedArgs= new ArrayList<>();
-                for(Expression expression: argumentList){
-                    String type=expression.calculateResolvedType().describe();
-                   // System.out.println(type);
-                    if(type.equals("java.lang.ClassLoader")){
-                        convertedArgs.add("java.lang.ClassLoader");
-                        continue;
+                try {
+                    for (Expression expression : argumentList) {
+                        String type = expression.calculateResolvedType().describe();
+                        // System.out.println(type);
+                        if (type.equals("java.lang.ClassLoader")) {
+                            convertedArgs.add("java.lang.ClassLoader");
+                            continue;
+                        }
+                        if (type.equals("java.lang.String")) {
+                            convertedArgs.add(type);
+                            continue;
+                        }
+                        if (type.equals("java.security.ProtectionDomain")) {
+                            convertedArgs.add("java.security.ProtectionDomain");
+                            continue;
+                        }
+                        if (type.startsWith("java.lang.Class")) {
+                            convertedArgs.add("java.lang.Class");
+                            continue;
+                        }
+                        if (expression.calculateResolvedType().isReferenceType()) {
+                            convertedArgs.add("java.lang.Object");
+                            continue;
+                        }
+                        if (expression.calculateResolvedType().isPrimitive() || expression.calculateResolvedType().isArray()) {
+                            convertedArgs.add(type);
+                        }
                     }
-                    if(type.equals("java.lang.String")){
-                        convertedArgs.add(type);
-                        continue;
-                    }
-                    if(type.equals("java.security.ProtectionDomain")){
-                        convertedArgs.add("java.security.ProtectionDomain");
-                        continue;
-                    }
-                    if(type.startsWith("java.lang.Class")){
-                        convertedArgs.add("java.lang.Class");
-                        continue;
-                    }
-                    if(expression.calculateResolvedType().isReferenceType() ){
-                        convertedArgs.add("java.lang.Object");
-                        continue;
-                    }
-                    if(expression.calculateResolvedType().isPrimitive() || expression.calculateResolvedType().isArray()){
-                        convertedArgs.add(type);
-                    }
+                }catch (Throwable e){
+                   // MyLogger.SCANALYSIS.error("error for resolve types, this callsite:"+callsiteName+" has been skipped");
+                    return false;
                 }
                // System.out.println(convertedArgs);
                 if(checkArgument(expectedArguments,convertedArgs)){
-                    MyLogger.SCANALYSIS.info("found the callsite:"+callsiteName+" at expected line:" +lineNumber+" with arguments:"+convertedArgs);
+                  //  MyLogger.SCANALYSIS.info("found the callsite:"+callsiteName+" at expected line:" +lineNumber+" with arguments:"+convertedArgs);
                     return true;
                 }
             }
         }
-        MyLogger.SCANALYSIS.info("no dynamic language feature");
+       // MyLogger.SCANALYSIS.info("no dynamic language feature");
         return isDynLang;
     }
 

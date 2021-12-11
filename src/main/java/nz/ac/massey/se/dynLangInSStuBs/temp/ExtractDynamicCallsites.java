@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class ExtractDynamicCallsites {
     //path to bug file. TODO:configurable
-    static final File sstubsFile=  new File("/home/lsui/projects/miningSStuBs/results/bugs.json");
+    static final File sstubsFile=  new File("/home/lsui/projects/miningSStuBs/results/sstubs.json");
     static final File reflectiveAPIFile= new File("src/main/resources/ReflectiveAPIs.json");
 
 
@@ -35,7 +35,7 @@ public class ExtractDynamicCallsites {
         Set<String> projects=new HashSet<>();
         Set<String> commits=new HashSet<>();
         List<String> listKeywords= new ArrayList<>();
-
+        Set<String> uniqueBugs=new HashSet<>();
         for(ReflectiveAPI api: reflectiveAPIList){
             for(Keyword keyword:api.getKeywords()){
                 listKeywords.add(keyword.getCallsite());
@@ -60,9 +60,11 @@ public class ExtractDynamicCallsites {
 
             innerloop:
             for (String keyword : listKeywords) {
-                if (beforeFix.contains(keyword) || afterFix.contains(keyword)) {
-                    total++;
+                if (beforeFix.contains(keyword)) {
+
 //                    total=total+1;
+                    String key=beforeFix+bugFilePath;
+                    uniqueBugs.add(key);
                     projects.add(projectName);
                     commits.add(parentCommit);
                     //String source = SourceCodeRetriever.retrieveSource(bugReport.getProjectName(), parentCommit, bugFilePath);
@@ -81,10 +83,10 @@ public class ExtractDynamicCallsites {
 //
 
         }
-        System.out.println(total);
+        System.out.println(uniqueBugs.size());
         System.out.println(commits.size());
         System.out.println(projects.size());
-//
+
 //        int totalBugs=0;
 //        for(BugData bugReport: reportList){
 //

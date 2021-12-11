@@ -30,8 +30,8 @@ import java.util.Set;
  */
 public class SourceCodeRetriever {
     static final String projectsDir="/home/lsui/projects/allJavaProjects";
-    static final String outputDir="/home/lsui/projects/allSourceCode";
-    static final File sstubsFile=  new File("results/bugs.json");
+    static final String outputDir="/home/lsui/projects/allsroucecode2";
+    static final File sstubsFile=  new File("results/sstubs.json");
     static final File reflectiveAPIFile= new File("src/main/resources/ReflectiveAPIs.json");
     //sleep for 1 second between each git checkout
     private static final int sleep=1000;
@@ -57,7 +57,7 @@ public class SourceCodeRetriever {
             String parentCommit = bugReport.getFixCommitParentSHA1();
             String bugFilePath = bugReport.getBugFilePath();
             count++;
-            MyLogger.RETRIEVESC.info("processing "+count+ " bug instance");
+            MyLogger.RETRIEVESC.info("processing "+count+ " bug instance/104337");
             innerloop:
             for (String keyword : keywordSet) {
                 if (beforeFix.contains(keyword)) {

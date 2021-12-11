@@ -44,3 +44,4 @@ results/*
 doc/*.bbl
 doc/*.blg
 doc/*.pdf
+sample/**
